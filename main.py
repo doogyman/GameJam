@@ -66,7 +66,7 @@ class Game:
                     elif event.key == pygame.K_F12:
                         print("running")
                         self.debug_mode = not self.debug_mode
-                self.user.update(self.dt)
+            self.user.update(self.dt)
             
             self.draw()
 
