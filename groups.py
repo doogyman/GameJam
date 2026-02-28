@@ -6,6 +6,7 @@ class AllSprites(pygame.sprite.Group):
         self.offset = pygame.Vector2()
     
     def draw(self, surface, target_pos):
+        print('we got to the function')
         self.offset.x = -(target_pos[0] - BASEWIDTH / 2)
         self.offset.y = -(target_pos[1] - BASEHEIGHT / 2)
 
@@ -14,4 +15,5 @@ class AllSprites(pygame.sprite.Group):
 
         for layer in [ground_sprites, object_sprites]:
             for sprite in sorted(layer, key = lambda sprite: sprite.rect.centery):
+                print()
                 surface.blit(sprite.image, sprite.rect.topleft + self.offset)
