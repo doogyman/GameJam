@@ -15,22 +15,25 @@ class Game:
         self.debug_mode = False
 
  
-    def draw(self):
-        
+    def draw(self):  
         self.game_surface.fill((50, 50, 50))
         scaled = pygame.transform.scale(self.game_surface, (SCREENWIDTH, SCREENHEIGHT))
         self.screen.blit(scaled, (0, 0))
         pygame.display.flip()
 
+
     async def run(self):
         while self.running:
 
             self.dt = self.clock.tick(FPS) / 1000
-
             for event in pygame.event.get():
+
                 if event.type == pygame.QUIT:
                     self.running = False
+                # if event.type == 
+
                 if event.type == pygame.KEYDOWN:
+
                     if event.key == pygame.K_ESCAPE:
                         self.running = False
                     if event.key == pygame.K_F12:
@@ -40,6 +43,9 @@ class Game:
             self.draw()
 
             await asyncio.sleep(0)
+
+
+
 
 
 
