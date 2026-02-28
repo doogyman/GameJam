@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "firstMap.tmx",
+    "activeFile": "Stone.tsx",
     "expandedProjectPaths": [
         "."
     ],
@@ -14,14 +14,14 @@
         },
         "Stone.tsx": {
             "scaleInDock": 1,
-            "scaleInEditor": 1
+            "scaleInEditor": 8
         },
         "firstMap.tmx": {
-            "scale": 0.75,
+            "scale": 1,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 134,
-                "y": 461.99999999999994
+                "x": -39.5,
+                "y": 250.5
             }
         },
         "firstMap.tmx#Stone": {
@@ -41,7 +41,8 @@
     "map.tileWidth": 16,
     "map.width": 100,
     "openFiles": [
-        "firstMap.tmx"
+        "firstMap.tmx",
+        "Stone.tsx"
     ],
     "project": "tileProj.tiled-project",
     "recentFiles": [

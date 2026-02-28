@@ -89,6 +89,8 @@ class User(Entity):
         print(self.pos)
     
     
+    
+    
 
 
 
