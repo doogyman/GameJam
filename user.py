@@ -14,27 +14,26 @@ class User(Entity):
         self.mouse = Mouse(pygame.mouse)
         self.pos = pygame.math.Vector2(x, y)
         self.pos = pygame.math.Vector2(x, y)
-        self.image
         self.basic = 'hello world'
         self.mousePositions = ()
 
         self.sheet = pygame.image.load('assets/pixilart-sprite.png').convert_alpha()
 
-        self.idle_front = get_sprite(self.sheet, 1, 16, 32, 0, 0, 0, 1)
-        self.idle_left = get_sprite(self.sheet, 5, 16, 32, 0, 0, 0, 1)
-        self.idle_right = get_sprite(self.sheet, 9, 16, 32, 0, 0, 0, 1)
-        self.idle_back = get_sprite(self.sheet, 13, 16, 32, 0, 0, 0, 1)
+        self.idle_front = [get_sprite(self.sheet, 1, 20, 32, 0, 0, 0, 1)]
+        self.idle_right = [get_sprite(self.sheet, 5, 20, 32, 0, 0, 0, 1)]
+        self.idle_left = [get_sprite(self.sheet, 9, 20, 32, 0, 0, 0, 1)]
+        self.idle_back = [get_sprite(self.sheet, 13, 20, 32, 0, 0, 0, 1)]
 
-        self.walk_front = [get_sprite(self.sheet, i, 16, 32, 0, 0, 0, 1) for i in range(4)]
-        self.walk_left = [get_sprite(self.sheet, i + 4, 16, 32, 0, 0, 0, 1) for i in range(4)]
-        self.walk_right = [get_sprite(self.sheet, i + 8, 16, 32, 0, 0, 0, 1) for i in range(4)]
-        self.walk_back = [get_sprite(self.sheet, i + 12, 16, 32, 0, 0, 0, 1) for i in range(4)]
+        self.walk_front = [get_sprite(self.sheet, i, 20, 32, 0, 0, 0, 1) for i in range(4)]
+        self.walk_right = [get_sprite(self.sheet, i + 4, 20, 32, 0, 0, 0, 1) for i in range(4)]
+        self.walk_left = [get_sprite(self.sheet, i + 8, 20, 32, 0, 0, 0, 1) for i in range(4)]
+        self.walk_back = [get_sprite(self.sheet, i + 12, 20, 32, 0, 0, 0, 1) for i in range(4)]
 
-        self.status = 'down'
+        self.status = 'front'
         self.frame_index = 0
         self.animation_speed = [float(3), float(7.5)]  # [idle, walk]
         # set the initial image and rect
-        self.image: pygame.Surface = self.idle_front
+        self.image: pygame.Surface = self.idle_front[0]
         self.rect = self.image.get_rect(center=self.pos)
         self.hitbox_rect = self.rect.inflate(-10, -30)
         # movement
@@ -70,9 +69,9 @@ class User(Entity):
         elif self.direction.x < 0:
             self.status = "left"; sprites = self.walk_left
         elif self.direction.y > 0:
-            self.status = "down"; sprites = self.walk_front 
+            self.status = "front"; sprites = self.walk_front 
         elif self.direction.y < 0:
-            self.status = "up"; sprites = self.walk_back
+            self.status = "back"; sprites = self.walk_back
         elif self.direction.x == 0 and self.direction.y == 0:
             sprites = getattr(self, f"idle_{self.status}")
         
