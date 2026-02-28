@@ -13,6 +13,7 @@ class User(Entity):
 
         self.mouse = Mouse(pygame.mouse)
         self.pos = pygame.math.Vector2(x, y)
+        self.pos = pygame.math.Vector2(x, y)
         self.image
         self.basic = 'hello world'
         self.mousePositions = ()
@@ -111,12 +112,13 @@ class User(Entity):
     def printPosition(self):
         print(self.pos)
 
-    def getUpdateReturnMousePos(self, mouse):
+    def getUpdateReturnMousePos(self):
         mousePos = self.mouse.getUpdateMousePos()
         return mousePos
     
     def movePlayer(self, mousePos):
-        self.pos = mousePos
+        self.pos = pygame.math.Vector2(mousePos[0], mousePos[1])
+        print('self.pos : ', self.pos)
 
 
     def moveToMouse(self):
