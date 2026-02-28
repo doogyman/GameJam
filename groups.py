@@ -4,7 +4,7 @@ class AllSprites(pygame.sprite.Group):
     def __init__(self):
         super().__init__()
 
-        self.offset = pygame.Vector2(x, y)
+        # self.offset = pygame.Vector2(x, y)
     
     def draw(self, surface, target_pos):
         self.offset.x = -(target_pos[0] - BASEWIDTH / 2)

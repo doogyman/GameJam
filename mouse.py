@@ -13,6 +13,7 @@ class Mouse():
     def getUpdateMousePos(self):
         newMousePos = self.mouse.get_pos()
         self.pos = newMousePos
+        print('newMousePos : ', newMousePos)
         return newMousePos
 
 

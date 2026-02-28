@@ -29,6 +29,7 @@ class Game:
 
 
     async def run(self):
+        self.user.printPosition()
         while self.running:
 
             self.dt = self.clock.tick(FPS) / 1000
@@ -38,9 +39,10 @@ class Game:
                     self.running = False
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    pos = self.user.getUpdateReturnMousePos
+                    pos = self.user.getUpdateReturnMousePos()
+                    # print('pos : ', pos)
                     self.user.movePlayer(pos)
-                    print(self.user.x, self.user.y)
+                    print(self.user.pos[0], self.user.pos[1])
                     # mosPos = mouse.getUpdateMousePos()
                     # print(mosPos)
                     # mouse.getUpdateReturnMousePos()
