@@ -1,0 +1,57 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "Stone.tsx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "": {
+            "scaleInDock": 1
+        },
+        "Stone.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 8
+        },
+        "firstMap.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": -39.5,
+                "y": 250.5
+            }
+        },
+        "firstMap.tmx#Stone": {
+            "scaleInEditor": 1
+        },
+        "firstMap.tmx#WallForwardAndBack": {
+            "scaleInDock": 1
+        },
+        "firstMap.tmx#WallLeftAndRight": {
+            "scaleInDock": 1
+        }
+    },
+    "last.imagePath": "/Users/corin/Documents/GitHub/GameJam/assets",
+    "map.height": 100,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 100,
+    "openFiles": [
+        "firstMap.tmx",
+        "Stone.tsx"
+    ],
+    "project": "tileProj.tiled-project",
+    "recentFiles": [
+        "firstMap.tmx",
+        "Stone.tsx"
+    ],
+    "tileset.embedInMap": true,
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}

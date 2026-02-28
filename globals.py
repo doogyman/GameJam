@@ -6,8 +6,8 @@ from pathlib import Path
 pygame.init()
 
 class Globals:
-    BASEWIDTH = 360
-    BASEHEIGHT = 120
+    BASEWIDTH = 500
+    BASEHEIGHT = 500
     FPS = 60
     TILESIZE = 16
     SCALE = 4
