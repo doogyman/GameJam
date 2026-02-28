@@ -21,6 +21,7 @@ class Game:
         self.game_surface = pygame.Surface((BASEWIDTH, BASEHEIGHT))
         self.running = True
 
+        
         self.all_sprites = AllSprites()
         self.collision_sprites = pygame.sprite.Group()
         
@@ -32,14 +33,16 @@ class Game:
         for x, y, image in self.map.get_layer_by_name("Tile Layer 1").tiles():
             Sprite((x * TILESIZE, y * TILESIZE), image, self.all_sprites)
 
-        for obj in self.map.get_layer_by_name('Object Layer 1'):
+        for obj in self.map.get_layer_by_name('CollisionBoxes'):
             surf = obj.image
             x, y = int(obj.x), int(obj.y)
             w, h = obj.width, obj.height
 
             CollisionSprite((x, y), (w, h), (self.all_sprites, self.collision_sprites))
-            if obj.name == 'Player':
-                print('yes obj.name == player')
+
+        for obj in self.map.get_layer_by_name('Player'):
+            print(obj.name)
+            if obj.name == "User":
                 self.user = User((obj.x, obj.y), pygame.Surface((obj.width, obj.height)), self.all_sprites, self.collision_sprites)
 
     def draw(self):  
