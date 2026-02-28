@@ -2,7 +2,7 @@ import pygame
 
 class User:
 
-    def __init__(self):
+    def __init__(self, x, y, groups: pygame.sprite.Group):
         self.basic = 'hello world'
         self.mousePositions = ()
 
