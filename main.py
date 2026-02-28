@@ -1,11 +1,17 @@
 import asyncio
 import pygame
 
+from pytmx.util_pygame import load_pygame
+
 from groups import AllSprites 
 from user import User
 from mouse import Mouse
 from globals import *
 pygame.init()
+
+
+
+
 
 class Game:
     def __init__(self):
@@ -21,6 +27,11 @@ class Game:
         
         self.user = User(20, 20, self.all_sprites, self.collision_sprites)
 
+        tmx_data = load_pygame('assets/firstMap.tmx')
+        # print(dir(tmx_data))
+        print(tmx_data)
+
+
  
     def draw(self):  
         self.game_surface.fill((50, 50, 50))
@@ -30,32 +41,35 @@ class Game:
 
 
     async def run(self):
-        self.user.printPosition()
+        # self.user.printPosition()
         while self.running:
+            self.user.printPosition()
 
-            self.dt = self.clock.tick(FPS) / 1000
+            # keys = pygame.get.key.get_pressed()
+
+            # self.dt = self.clock.tick(FPS) / 1000
             for event in pygame.event.get():
 
                 if event.type == pygame.QUIT:
                     self.running = False
-
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    pos = self.user.getUpdateReturnMousePos()
-                    # print('pos : ', pos)
-                    self.user.movePlayer(pos)
-                    print(self.user.pos[0], self.user.pos[1])
-                    # mosPos = mouse.getUpdateMousePos()
-                    # print(mosPos)
-                    # mouse.getUpdateReturnMousePos()
-
-                if event.type == pygame.KEYDOWN:
-
+                elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         self.running = False
-                    if event.key == pygame.K_F12:
+                    elif event.key == pygame.K_F12:
                         print("running")
                         self.debug_mode = not self.debug_mode
-                self.user.update(self.dt)
+
+
+                self.user.checkInputs(event);
+                
+
+                
+                    
+            
+            # self.user.update(keys)
+
+
+                # self.user.update(self.dt)
             
             self.draw()
 
@@ -72,6 +86,8 @@ async def main():
     game = Game()
     await game.run()
 
+
+    
 
 
 asyncio.run(main())
