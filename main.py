@@ -38,8 +38,6 @@ class Game:
             w, h = obj.width, obj.height
 
             CollisionSprite((x, y), (w, h), (self.all_sprites, self.collision_sprites))
-
-            print('obj.name : ', obj.name)
             if obj.name == 'Player':
                 print('yes obj.name == player')
                 self.user = User((obj.x, obj.y), pygame.Surface((obj.width, obj.height)), self.all_sprites, self.collision_sprites)
@@ -53,8 +51,6 @@ class Game:
 
 
     async def run(self):
-        self.dt = self.clock.tick(FPS) / 1000
-        # self.user.printPosition()
         while self.running:
 
             keys = pygame.key.get_pressed()
@@ -70,7 +66,7 @@ class Game:
                     elif event.key == pygame.K_F12:
                         print("running")
                         self.debug_mode = not self.debug_mode
-            self.user.update(self.dt)
+                self.user.update(self.dt)
             
             self.draw()
 
