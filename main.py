@@ -38,8 +38,12 @@ class Game:
                     self.running = False
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    mosPos = mouse.getUpdateMousePos()
-                    print(mosPos)
+                    pos = self.user.getUpdateReturnMousePos
+                    self.user.movePlayer(pos)
+                    print(self.user.x, self.user.y)
+                    # mosPos = mouse.getUpdateMousePos()
+                    # print(mosPos)
+                    # mouse.getUpdateReturnMousePos()
 
                 if event.type == pygame.KEYDOWN:
 
@@ -54,8 +58,7 @@ class Game:
             await asyncio.sleep(0)
 
 
-mouse = Mouse(pygame.mouse)
-# raltao = User()
+
 
 
 
