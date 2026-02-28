@@ -1,0 +1,23 @@
+import pygame
+from pathlib import Path
+
+
+
+pygame.init()
+
+class Globals:
+    BASEWIDTH = 360
+    BASEHEIGHT = 120
+    FPS = 60
+    TILESIZE = 16
+    SCALE = 1
+    SCREENWIDTH = BASEWIDTH * SCALE
+    SCREENHEIGHT = BASEHEIGHT * SCALE
+
+BASEWIDTH = Globals.BASEWIDTH
+BASEHEIGHT = Globals.BASEHEIGHT
+SCREENWIDTH = Globals.SCREENWIDTH
+SCREENHEIGHT = Globals.SCREENHEIGHT
+FPS = Globals.FPS
+TILESIZE = Globals.TILESIZE
+SCALE = Globals.SCALE
