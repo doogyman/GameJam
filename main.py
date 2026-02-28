@@ -39,6 +39,7 @@ class Game:
 
             CollisionSprite((x, y), (w, h), (self.all_sprites, self.collision_sprites))
 
+            print('obj.name : ', obj.name)
             if obj.name == 'Player':
                 print('yes obj.name == player')
                 self.user = User((obj.x, obj.y), pygame.Surface((obj.width, obj.height)), self.all_sprites, self.collision_sprites)
