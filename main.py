@@ -1,6 +1,9 @@
 import asyncio
 import pygame
+
+from groups import AllSprites 
 from user import User
+from mouse import Mouse
 from globals import *
 pygame.init()
 
@@ -13,9 +16,9 @@ class Game:
         self.game_surface = pygame.Surface((BASEWIDTH, BASEHEIGHT))
         self.running = True
 
+        self.all_sprites = AllSprites()
         
-        
-        self.user = User( 20, 20, pygame.sprite.Group)
+        self.user = User(20, 20, self.all_sprites)
 
  
     def draw(self):  
@@ -36,6 +39,7 @@ class Game:
                 # if event.type == 
 
                 if event.type == pygame.KEYDOWN:
+                    pass
 
                     if event.key == pygame.K_ESCAPE:
                         self.running = False
@@ -47,6 +51,9 @@ class Game:
 
             await asyncio.sleep(0)
 
+
+mouse = Mouse(pygame.mouse)
+# raltao = User()
 
 
 

@@ -1,30 +1,37 @@
 import pygame
-from enitity import Entity
+from entity import Entity
 class User(Entity):
+
     def __init__(self, x, y, groups: pygame.sprite.Group):
-        super.__init__(x, y, groups)
-        self.pos = pygame.Vector2(x, y)
+        super().__init__(x, y, groups)
+        self.startingPos = pygame.Vector2(x, y)
+        self.pos = ()
         self.basic = 'hello world'
         self.mousePositions = ()
 
     def printPosition(self):
         print(self.pos)
 
-    def getInput():
-        
-        for event in pygame.event.get():
-            print(event)
+    def getUpdateReturnMousePos(self, mouse):
+        mousePos = mouse.get_pos()
+        return mousePos
+    
+    def movePlayer(self, mousePos):
+        self.pos = mousePos
 
-            if event == pygame.MOUSEBUTTONDOWN:
-                print('Clicked')
+
+    def moveToMouse(self):
+        #first step is to get the mouse coords
+        mousePos = self.getUpdateReturnMousePos(pygame.mouse)
+        print('mousePos : ', mousePos)
+
+        # then, move the player to that spot
+        self.movePlayer(mousePos)
+
+
+
+
+
                 
 
-            
-
-
-
-raltao = User()
-
-while True:
-    # raltao.printy()
-    raltao.getInput()
+        
