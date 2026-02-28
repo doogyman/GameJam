@@ -1,6 +1,6 @@
-
 import asyncio
 import pygame
+from user import User
 from globals import *
 pygame.init()
 
@@ -12,7 +12,10 @@ class Game:
         self.screen = pygame.display.set_mode((SCREENWIDTH, SCREENHEIGHT))
         self.game_surface = pygame.Surface((BASEWIDTH, BASEHEIGHT))
         self.running = True
-        self.debug_mode = False
+
+        
+        
+        self.user = User( 20, 20, pygame.sprite.Group)
 
  
     def draw(self):  

@@ -1,13 +1,14 @@
 import pygame
-
-class User:
-
+from enitity import Entity
+class User(Entity):
     def __init__(self, x, y, groups: pygame.sprite.Group):
+        super.__init__(x, y, groups)
+        self.pos = pygame.Vector2(x, y)
         self.basic = 'hello world'
         self.mousePositions = ()
 
-    def printy(self):
-        print(self.basic)
+    def printPosition(self):
+        print(self.pos)
 
     def getInput():
         
