@@ -31,8 +31,10 @@ class User(Entity):
         self.walk_right = [get_sprite(self.sheet, i + 8, 16, 32, 0, 0, 0, 1) for i in range(4)]
         self.walk_back = [get_sprite(self.sheet, i + 12, 16, 32, 0, 0, 0, 1) for i in range(4)]
 
-        self.xVelocity = 0
-        self.yVelocity = 0
+        self.currentXvelocity = 0
+        self.currentYvelocity = 0
+
+        self.velocityRate = 5
 
 
 
@@ -46,16 +48,16 @@ class User(Entity):
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_w:
                 print('w pressed')
-                self.yVelocity = 10
+                self.currentYvelocity = self.velocityRate
             elif event.key == pygame.K_s:
                 print('s pressed')                
-                self.yVelocity = -10
+                self.currentYvelocity = -self.velocityRate
             elif event.key == pygame.K_a:
                 print('a pressed')                
-                self.xVelocity = -10
+                self.currentXvelocity = -self.velocityRate
             elif event.key == pygame.K_d:
                 print('d pressed')                
-                self.xVelocity = 10
+                self.currentXvelocity = self.velocityRate
         
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_w:
@@ -66,10 +68,10 @@ class User(Entity):
                 self.yVelocity = 0
             elif event.key == pygame.K_a:
                 print('a released')
-                self.xVelocity = 0
+                self.currentXvelocity = 0
             elif event.key == pygame.K_d:
                 print('d released')
-                self.xVelocity = 0
+                self.currentXvelocity = 0
 
     def movePlayer(self, mousePos):
         self.pos = pygame.math.Vector2(mousePos[0], mousePos[1])
@@ -80,8 +82,8 @@ class User(Entity):
         return mousePos
 
     def update(self):
-        self.pos[0] += self.xVelocity
-        self.pos[1] += self.yVelocity
+        self.pos[0] += self.currentXvelocity
+        self.pos[1] += self.currentYvelocity
 
     def printPosition(self):
         print(self.pos)

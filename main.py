@@ -66,7 +66,7 @@ class Game:
                 
                     
             
-            # self.user.update(keys)
+            self.user.update()
 
 
                 # self.user.update(self.dt)
