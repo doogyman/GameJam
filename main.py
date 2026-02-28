@@ -57,9 +57,9 @@ class Game:
         # self.user.printPosition()
         while self.running:
 
-            # keys = pygame.get.key.get_pressed()
+            keys = pygame.key.get_pressed()
 
-            # self.dt = self.clock.tick(FPS) / 1000
+            self.dt = self.clock.tick(FPS) / 1000
             for event in pygame.event.get():
 
                 if event.type == pygame.QUIT:
