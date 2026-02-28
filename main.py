@@ -17,8 +17,9 @@ class Game:
         self.running = True
 
         self.all_sprites = AllSprites()
+        self.collision_sprites = pygame.sprite.Group()
         
-        self.user = User(20, 20, self.all_sprites)
+        self.user = User(20, 20, self.all_sprites, self.collision_sprites)
 
  
     def draw(self):  
@@ -52,6 +53,7 @@ class Game:
                     if event.key == pygame.K_F12:
                         print("running")
                         self.debug_mode = not self.debug_mode
+                self.user.update(self.dt)
             
             self.draw()
 
