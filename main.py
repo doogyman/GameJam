@@ -19,6 +19,7 @@ class Game:
         pygame.display.set_caption("Stone Village")
         self.screen = pygame.display.set_mode((SCREENWIDTH, SCREENHEIGHT))
         self.game_surface = pygame.Surface((BASEWIDTH, BASEHEIGHT))
+        self.scaled_surface = pygame.Surface((SCREENWIDTH, SCREENHEIGHT))
         self.running = True
 
         
@@ -48,8 +49,8 @@ class Game:
     def draw(self):  
         self.game_surface.fill((0, 0, 0))
         self.all_sprites.draw(self.game_surface, self.user.rect.center)
-        scaled = pygame.transform.scale(self.game_surface, (SCREENWIDTH, SCREENHEIGHT))
-        self.screen.blit(scaled, (0, 0))
+        pygame.transform.scale(self.game_surface, (SCREENWIDTH, SCREENHEIGHT), self.scaled_surface)
+        self.screen.blit(self.scaled_surface, (0, 0))
         pygame.display.flip()
 
 
@@ -74,21 +75,9 @@ class Game:
             self.draw()
 
             await asyncio.sleep(0)
-
-
-
-
-
-
-
-
 async def main():
     game = Game()
     await game.run()
-
-
-    
-
 
 asyncio.run(main())
 

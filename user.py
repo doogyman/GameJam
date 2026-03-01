@@ -52,14 +52,19 @@ class User(Entity):
             #print(f"Direction: {self.direction}")
             
     def move(self, dt):
+        if self.direction.length_squared() > 0:
+            self.direction = self.direction.normalize()
 
-        self.pos.x += self.direction.x * self.speed * dt
-        self.hitbox_rect.centerx = int(self.pos.x)
-        self.collision('h') # horizontal
-        self.pos.y += self.direction.y * self.speed * dt
-        
-        self.hitbox_rect.centery = int(self.pos.y)
-        self.collision('v') # vertical
+        if self.direction.x != 0:
+            self.pos.x += self.direction.x * self.speed * dt
+            self.hitbox_rect.centerx = int(self.pos.x)
+            self.collision('h')  # horizontal
+
+        if self.direction.y != 0:
+            self.pos.y += self.direction.y * self.speed * dt
+            self.hitbox_rect.centery = int(self.pos.y)
+            self.collision('v')  # vertical
+
         self.rect.center = self.hitbox_rect.center
 
 
