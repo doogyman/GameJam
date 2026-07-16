@@ -24,6 +24,10 @@ class Game:
         
         self.all_sprites = AllSprites()
         self.collision_sprites = pygame.sprite.Group()
+        self.ore_sprites = pygame.sprite.Group()
+        
+        # debugging
+        self.isDebugging = False
         
         self.setup()
 
@@ -47,9 +51,9 @@ class Game:
             print(obj.name)
             print(obj.x, obj.y)
             if obj.name == "User":
-                self.user = User(obj.x, obj.y, self.all_sprites, self.collision_sprites)
+                self.user = User(obj.x, obj.y, self.all_sprites, self.collision_sprites, self.ore_sprites)
 
-            # pygame.Surface((obj.width, obj.height)) todo: add this back for more information
+            # pygame.Surface((obj.width, obj.height))
 
         # load the ores
         for obj in self.map.get_layer_by_name('Ores'):
@@ -58,7 +62,7 @@ class Game:
             w, h = int(obj.width), int(obj.height)
             
             
-            Sprite((x, y), obj.image, self.all_sprites)
+            MaterialSprite((x, y), obj.image, (self.all_sprites, self.ore_sprites))
 
 
 
@@ -67,9 +71,21 @@ class Game:
     def draw(self):  
         self.game_surface.fill((0, 0, 0))
         self.all_sprites.draw(self.game_surface, self.user.rect.center)
+        
+        if self.isDebugging:
+            self.debug()
         pygame.transform.scale(self.game_surface, (SCREENWIDTH, SCREENHEIGHT), self.scaled_surface)
         self.screen.blit(self.scaled_surface, (0, 0))
         pygame.display.flip()
+    
+    def debug(self):
+        print('debugging')
+        # DEBUG: Draw red outlines for collision sprites
+        for sprite in self.collision_sprites:
+            pygame.draw.rect(self.game_surface, (255, 0, 0), sprite.rect, 1)
+        
+        # DEBUG: Draw green outline for the player
+        pygame.draw.rect(self.game_surface, (0, 255, 0), self.user.rect, 1)
 
 
     async def run(self):
@@ -87,8 +103,9 @@ class Game:
                         self.running = False
                     elif event.key == pygame.K_F12:
                         print("running")
-                        self.debug_mode = not self.debug_mode
+                        self.isDebugging = not self.isDebugging
             self.user.update(self.dt)
+            
             
             self.draw()
 

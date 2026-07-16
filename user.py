@@ -8,7 +8,7 @@ from spritesheet import get_sprite
 
 class User(Entity):
 
-    def __init__(self, x, y, width, height, groups: pygame.sprite.Group, collision_sprites: pygame.sprite.Group, ore_sprites: pygame.sprite.Group):
+    def __init__(self, x, y, groups: pygame.sprite.Group, collision_sprites: pygame.sprite.Group, ore_sprites: pygame.sprite.Group):
         super().__init__(x, y, groups)
 
         print('User constructor')
