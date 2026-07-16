@@ -43,8 +43,11 @@ class Game:
 
         for obj in self.map.get_layer_by_name('Player'):
             print(obj.name)
+            print(obj.x, obj.y)
             if obj.name == "User":
                 self.user = User((obj.x, obj.y), pygame.Surface((obj.width, obj.height)), self.all_sprites, self.collision_sprites)
+
+        
 
     def draw(self):  
         self.game_surface.fill((0, 0, 0))
