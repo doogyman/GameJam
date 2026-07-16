@@ -58,7 +58,7 @@ class Game:
             w, h = int(obj.width), int(obj.height)
             
             
-            CollisionSprite((x, y), (w, h), (self.all_sprites, self.collision_sprites))
+            Sprite((x, y), obj.image, self.all_sprites)
 
 
 

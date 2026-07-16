@@ -5,3 +5,4 @@ class Entity(pygame.sprite.Sprite):
         super().__init__(groups)
         self.x = x
         self.y = y 
+        

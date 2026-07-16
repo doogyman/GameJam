@@ -8,7 +8,7 @@ from spritesheet import get_sprite
 
 class User(Entity):
 
-    def __init__(self, x, y, groups: pygame.sprite.Group, collision_sprites: pygame.sprite.Group):
+    def __init__(self, x, y, width, height, groups: pygame.sprite.Group, collision_sprites: pygame.sprite.Group, ore_sprites: pygame.sprite.Group):
         super().__init__(x, y, groups)
 
         print('User constructor')
@@ -42,9 +42,7 @@ class User(Entity):
         self.direction = pygame.Vector2(0, 0)
         self.speed = 100
         self.collision_sprites = collision_sprites
-
-
-        
+        self.ore_sprites = ore_sprites
 
     def input(self):
             keys = pygame.key.get_pressed()
@@ -68,6 +66,7 @@ class User(Entity):
             self.collision('v')  # vertical
 
         self.rect.center = self.hitbox_rect.center
+        self.collide_with_ore()
 
 
     def animate(self, dt):
@@ -106,6 +105,11 @@ class User(Entity):
         if collision:
             #print(f'Updating self.pos to: {self.rect.center}')
             self.pos = pygame.Vector2(self.hitbox_rect.center)
+
+    def collide_with_ore(self):
+        for sprite in self.ore_sprites:
+            if sprite.rect.colliderect(self.rect):
+                print("collision detected")
 
     def update(self, dt):
         self.input()
