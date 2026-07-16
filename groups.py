@@ -24,6 +24,9 @@ class AllSprites(pygame.sprite.Group):
 
         # ground_sprites = [sprite for sprite in self if hasattr(sprite, 'ground')]
         object_sprites = [sprite for sprite in self if not hasattr(sprite, 'ground')]
+        player_sprite = [sprite for sprite in self if hasattr(sprite, 'Player')]
+
+        print('object_sprites : ', object_sprites)
 
         # for sprite in ground_sprites:
         #     # print('spritey : ', sprite.rect)

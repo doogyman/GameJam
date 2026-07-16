@@ -37,7 +37,7 @@ class User(Entity):
         # set the initial image and rect
         self.image: pygame.Surface = self.idle_front[0]
         self.rect = self.image.get_rect(center=self.pos) # source rect
-        self.hitbox_rect = self.rect.inflate(-10, -30) # dest rect
+        self.hitbox_rect = self.rect.inflate(-5, -15) # dest rect
         # movement
         self.direction = pygame.Vector2(0, 0)
         self.speed = 100
@@ -92,8 +92,11 @@ class User(Entity):
 
     def collision(self, direction):
         collision = False
+        print('self.hitbox_rect : ', self.hitbox_rect)
         for sprite in self.collision_sprites:
             if sprite.rect.colliderect(self.hitbox_rect):
+                print('sprite.rect : ', sprite.rect)
+
                 collision = True
                 #print(f'COLLISION in {direction} with: {sprite}, rect: {sprite.rect}, player: {self.rect}')
                 if direction == 'h':
