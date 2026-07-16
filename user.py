@@ -37,7 +37,7 @@ class User(Entity):
         # set the initial image and rect
         self.image: pygame.Surface = self.idle_front[0]
         self.rect = self.image.get_rect(center=self.pos) # source rect
-        self.hitbox_rect = self.rect.inflate(-5, -15) # dest rect
+        self.hitbox_rect = self.rect.inflate(-2, -8) # dest rect, y, x
         # movement
         self.direction = pygame.Vector2(0, 0)
         self.speed = 100

@@ -90,8 +90,8 @@ class Game:
         offset.x = -(self.user.rect.center[0] - BASEWIDTH / 2)
         offset.y = -(self.user.rect.center[1] - BASEHEIGHT / 2)
         
-        tempRect = pygame.rect(self.user.hitbox_rect.x + offset.x, self.user.hitbox_rect.y + offset.y, self.user.hitbox_rect.width, self.user.hitbox_rect.height)
-        pygame.draw.rect(self.game_surface, (0, 255, 0), tempRect, 5)
+        tempRect = pygame.Rect(self.user.hitbox_rect.x + offset.x, self.user.hitbox_rect.y + offset.y, self.user.hitbox_rect.width, self.user.hitbox_rect.height)
+        pygame.draw.rect(self.game_surface, (0, 255, 0), tempRect, 1)
 
 
     async def run(self):
