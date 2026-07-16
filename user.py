@@ -37,14 +37,12 @@ class User(Entity):
         # set the initial image and rect
         self.image: pygame.Surface = self.idle_front[0]
         self.rect = self.image.get_rect(center=self.pos) # source rect
-        self.hitbox_rect = self.rect.inflate(-2, -8) # dest rect, y, x
+        self.hitbox_rect = self.rect.inflate(-5, -15) # dest rect
         # movement
         self.direction = pygame.Vector2(0, 0)
         self.speed = 100
         self.collision_sprites = collision_sprites
-
-
-        
+        self.ore_sprites = ore_sprites
 
     def input(self):
             keys = pygame.key.get_pressed()
@@ -110,6 +108,11 @@ class User(Entity):
             #print(f'Updating self.pos to: {self.rect.center}')
             self.pos = pygame.Vector2(self.hitbox_rect.center)
 
+    def collide_with_ores(self):
+        for sprite in self.ore_sprites:
+            if sprite.rect.colliderect(self.hitbox_rect):
+                print("collided")
+                
     def update(self, dt):
         self.input()
         self.move(dt)
