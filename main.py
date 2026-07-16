@@ -49,7 +49,7 @@ class Game:
             if obj.name == "User":
                 self.user = User(obj.x, obj.y, self.all_sprites, self.collision_sprites)
 
-            # pygame.Surface((obj.width, obj.height))
+            # pygame.Surface((obj.width, obj.height)) todo: add this back for more information
 
         # load the ores
         for obj in self.map.get_layer_by_name('Ores'):

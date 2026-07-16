@@ -36,8 +36,8 @@ class User(Entity):
         self.animation_speed = [float(3), float(7.5)]  # [idle, walk]
         # set the initial image and rect
         self.image: pygame.Surface = self.idle_front[0]
-        self.rect = self.image.get_rect(center=self.pos)
-        self.hitbox_rect = self.rect.inflate(-10, -30)
+        self.rect = self.image.get_rect(center=self.pos) # source rect
+        self.hitbox_rect = self.rect.inflate(-10, -30) # dest rect
         # movement
         self.direction = pygame.Vector2(0, 0)
         self.speed = 100
