@@ -11,8 +11,10 @@ class User(Entity):
     def __init__(self, x, y, groups: pygame.sprite.Group, collision_sprites: pygame.sprite.Group):
         super().__init__(x, y, groups)
 
+        print('User constructor')
+        print('x : ', x)
+        print('y : ', y)
         self.mouse = Mouse(pygame.mouse)
-        self.pos = pygame.math.Vector2(x, y)
         self.pos = pygame.math.Vector2(x, y)
         self.basic = 'hello world'
         self.mousePositions = ()

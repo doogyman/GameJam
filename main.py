@@ -47,13 +47,15 @@ class Game:
             print(obj.name)
             print(obj.x, obj.y)
             if obj.name == "User":
-                self.user = User((obj.x, obj.y), pygame.Surface((obj.width, obj.height)), self.all_sprites, self.collision_sprites)
+                self.user = User(obj.x, obj.y, self.all_sprites, self.collision_sprites)
+
+            # pygame.Surface((obj.width, obj.height))
 
         # load the ores
         for obj in self.map.get_layer_by_name('Ores'):
             print('obj : ', obj)
-            x, y = obj.x, obj.y
-            w, h = obj.width, obj.height
+            x, y = int(obj.x), int(obj.y)
+            w, h = int(obj.width), int(obj.height)
             
             
             CollisionSprite((x, y), (w, h), (self.all_sprites, self.collision_sprites))
@@ -73,7 +75,7 @@ class Game:
     async def run(self):
         while self.running:
 
-            keys = pygame.key.get_pressed()
+            # keys = pygame.key.get_pressed()
 
             self.dt = self.clock.tick(FPS) / 1000
             for event in pygame.event.get():
