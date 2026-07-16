@@ -32,4 +32,7 @@ class MaterialSprite(pygame.sprite.Sprite):
         
 
     def drawMessageBox(self, targetSurface, loadedMessageBox):
-        targetSurface.blit(loadedMessageBox, (100, 100))
+        print('drawMessage FUNC called')
+        print('targetSurface : ', targetSurface)
+        print('loadedMessageBox : ', loadedMessageBox)
+        targetSurface.blit(loadedMessageBox, self.rect)

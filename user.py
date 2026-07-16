@@ -1,4 +1,5 @@
 import pygame
+from globals import *
 from entity import Entity
 from mouse import Mouse
 from load_image import load_image
@@ -21,7 +22,11 @@ class User(Entity):
 
         self.sheet = pygame.image.load('assets/pixilart-sprite.png').convert_alpha()
 
+        # aluminiumMessageBox
+
         self.aluminiumMessageBox = pygame.image.load('assets/aluminium-Sheet.png').convert_alpha()
+        # self.aluminiumMessageBox
+        pygame.transform.scale_by(self.aluminiumMessageBox, 5)
 
         self.idle_front = [get_sprite(self.sheet, 1, 20, 32, 0, 0, 0, 1)]
         self.idle_right = [get_sprite(self.sheet, 5, 20, 32, 0, 0, 0, 1)]
@@ -67,7 +72,7 @@ class User(Entity):
             self.hitbox_rect.centery = int(self.pos.y)
             self.collision('v')  # vertical
 
-        self.collide_with_ores()
+        # self.collide_with_ores()
         
         self.rect.center = self.hitbox_rect.center
     
@@ -112,17 +117,35 @@ class User(Entity):
             #print(f'Updating self.pos to: {self.rect.center}')
             self.pos = pygame.Vector2(self.hitbox_rect.center)
 
-    def collide_with_ores(self):
+    def collide_with_ores(self, surface):
         for sprite in self.ore_sprites:
             # print('1')
             if sprite.rect.colliderect(self.hitbox_rect):
                 print("collided with ore")
-                sprite.drawMessageBox(sprite.rect, self.aluminiumMessageBox)
+                # surface.blit(self.aluminiumMessageBox, sprite.rect)
+                pygame.draw.circle(surface, (255, 255, 0), (self.rect.x, self.rect.y), 50)
+                # sprite.drawMessageBox(surface, self.aluminiumMessageBox)
+
+    def draw(self, surface):
+
+        for sprite in self.ore_sprites:
+            if sprite.rect.colliderect(self.hitbox_rect):
+                print("collided with ore")
+
+                target_pos = sprite.rect
+                offset = pygame.Vector2()
+
+                offset.x = -(target_pos[0] - BASEWIDTH / 2)
+                offset.y = -(target_pos[1] - BASEHEIGHT / 2)
+                coords = (sprite.rect.x + offset.x, sprite.rect.y + offset.y)
+
+                surface.blit(self.aluminiumMessageBox, coords)
                 
-    def update(self, dt):
+    def update(self, dt, surface):
         self.input()
         self.move(dt)
         self.animate(dt)
+        self.collide_with_ores(surface)
 
 
     def printPosition(self):

@@ -65,14 +65,13 @@ class Game:
             
             
             MaterialSprite((x, y), obj.image, (self.all_sprites, self.ore_sprites))
-
-
-
-        
+  
 
     def draw(self):  
         self.game_surface.fill((0, 0, 0))
         self.all_sprites.draw(self.game_surface, self.user.rect.center)
+        self.user.draw(self.game_surface)
+        # self.ground_sprites
         
         if self.isDebugging:
             self.debug()
@@ -116,7 +115,7 @@ class Game:
             
             self.draw()
 
-            self.user.update(self.dt)
+            self.user.update(self.dt, self.game_surface)
 
 
             await asyncio.sleep(0)
