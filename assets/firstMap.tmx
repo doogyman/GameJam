@@ -324,27 +324,27 @@
   </object>
  </objectgroup>
  <objectgroup id="5" name="Ores" locked="1">
-  <object id="162" gid="5" x="954" y="702" width="16" height="16"/>
-  <object id="163" gid="5" x="162.667" y="50.6667" width="16" height="16"/>
-  <object id="164" gid="5" x="389.333" y="152" width="16" height="16"/>
-  <object id="165" gid="5" x="222.667" y="325.333" width="16" height="16"/>
-  <object id="166" gid="5" x="412" y="442.667" width="16" height="16"/>
-  <object id="167" gid="5" x="172" y="798.667" width="16" height="16"/>
-  <object id="168" gid="5" x="84" y="797.333" width="16" height="16"/>
-  <object id="169" gid="5" x="226" y="1364" width="16" height="16"/>
-  <object id="170" gid="5" x="238" y="1533" width="16" height="16"/>
-  <object id="171" gid="5" x="1112" y="1272" width="16" height="16"/>
-  <object id="172" gid="4" x="1140" y="1024" width="16" height="16"/>
-  <object id="173" gid="4" x="1274.67" y="1008" width="16" height="16"/>
-  <object id="174" gid="4" x="1240" y="852" width="16" height="16"/>
-  <object id="175" gid="4" x="876" y="812" width="16" height="16"/>
-  <object id="176" gid="4" x="792" y="936" width="16" height="16"/>
-  <object id="177" gid="4" x="630.667" y="1070.67" width="16" height="16"/>
-  <object id="178" gid="4" x="602" y="490" width="16" height="16"/>
-  <object id="179" gid="4" x="1036" y="556" width="16" height="16"/>
-  <object id="180" gid="4" x="893" y="1389" width="16" height="16"/>
-  <object id="181" gid="4" x="261.333" y="1530.67" width="16" height="16"/>
-  <object id="182" gid="4" x="394.667" y="744" width="16" height="16"/>
-  <object id="207" gid="4" x="722.625" y="334.375" width="16" height="16"/>
+  <object id="162" name="titanium" gid="5" x="954" y="702" width="16" height="16"/>
+  <object id="163" name="titanium" gid="5" x="162.667" y="50.6667" width="16" height="16"/>
+  <object id="164" name="titanium" gid="5" x="389.333" y="152" width="16" height="16"/>
+  <object id="165" name="titanium" gid="5" x="222.667" y="325.333" width="16" height="16"/>
+  <object id="166" name="titanium" gid="5" x="412" y="442.667" width="16" height="16"/>
+  <object id="167" name="titanium" gid="5" x="172" y="798.667" width="16" height="16"/>
+  <object id="168" name="titanium" gid="5" x="84" y="797.333" width="16" height="16"/>
+  <object id="169" name="titanium" gid="5" x="226" y="1364" width="16" height="16"/>
+  <object id="170" name="titanium" gid="5" x="238" y="1533" width="16" height="16"/>
+  <object id="171" name="titanium" gid="5" x="1112" y="1272" width="16" height="16"/>
+  <object id="172" name="lithium" gid="4" x="1140" y="1024" width="16" height="16"/>
+  <object id="173" name="lithium" gid="4" x="1274.67" y="1008" width="16" height="16"/>
+  <object id="174" name="lithium" gid="4" x="1240" y="852" width="16" height="16"/>
+  <object id="175" name="lithium" gid="4" x="876" y="812" width="16" height="16"/>
+  <object id="176" name="lithium" gid="4" x="792" y="936" width="16" height="16"/>
+  <object id="177" name="lithium" gid="4" x="630.667" y="1070.67" width="16" height="16"/>
+  <object id="178" name="lithium" gid="4" x="602" y="490" width="16" height="16"/>
+  <object id="179" name="lithium" gid="4" x="1036" y="556" width="16" height="16"/>
+  <object id="180" name="lithium" gid="4" x="893" y="1389" width="16" height="16"/>
+  <object id="181" name="lithium" gid="4" x="261.333" y="1530.67" width="16" height="16"/>
+  <object id="182" name="lithium" gid="4" x="394.667" y="744" width="16" height="16"/>
+  <object id="207" name="lithium" gid="4" x="722.625" y="334.375" width="16" height="16"/>
  </objectgroup>
 </map>

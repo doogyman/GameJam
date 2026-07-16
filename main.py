@@ -52,8 +52,8 @@ class Game:
         # load the ores
         for obj in self.map.get_layer_by_name('Ores'):
             print('obj : ', obj)
-            x, y = obj.x, obj.y
-            w, h = obj.width, obj.height
+            x, y = int(obj.x), int(obj.y)
+            w, h = int(obj.width), int(obj.height)
             
             
             CollisionSprite((x, y), (w, h), (self.all_sprites, self.collision_sprites))
