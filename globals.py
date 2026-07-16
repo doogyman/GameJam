@@ -8,7 +8,7 @@ class Globals:
     BASEHEIGHT = 250
     FPS = 60
     TILESIZE = 16
-    SCALE = 3
+    SCALE = 2
     SCREENWIDTH = BASEWIDTH * SCALE
     SCREENHEIGHT = BASEHEIGHT * SCALE
 
