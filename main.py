@@ -81,8 +81,9 @@ class Game:
     def debug(self):
         print('debugging')
         # DEBUG: Draw red outlines for collision sprites
-        for sprite in self.collision_sprites:
-            pygame.draw.rect(self.game_surface, (255, 0, 0), sprite.rect, 1)
+        # for sprite in self.collision_sprites:
+        #     self.all_sprites.drawHitbox(self.game_surface, self.user.rect.center)
+        self.all_sprites.drawHitbox(self.game_surface, self.user.rect.center)
         
         # DEBUG: Draw green outline for the player
         pygame.draw.rect(self.game_surface, (0, 255, 0), self.user.rect, 1)
@@ -104,10 +105,12 @@ class Game:
                     elif event.key == pygame.K_F12:
                         print("running")
                         self.isDebugging = not self.isDebugging
-            self.user.update(self.dt)
             
             
             self.draw()
+
+            self.user.update(self.dt)
+
 
             await asyncio.sleep(0)
 async def main():

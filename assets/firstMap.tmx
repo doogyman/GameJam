@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="426">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="426">
  <tileset firstgid="1" source="Stone.tsx"/>
  <tileset firstgid="2" name="WallLeftAndRight" tilewidth="16" tileheight="16" tilecount="1" columns="1">
   <image source="WallLeftAndRight.png" width="16" height="16"/>
@@ -13,6 +13,11 @@
  <tileset firstgid="5" name="lithium" tilewidth="16" tileheight="16" tilecount="1" columns="1">
   <image source="lithium.png" width="16" height="16"/>
  </tileset>
+ <objectgroup id="6" name="Player" locked="1">
+  <object id="210" name="User" x="487.7" y="1389.73">
+   <point/>
+  </object>
+ </objectgroup>
  <layer id="3" name="Tile Layer 1" width="100" height="100">
   <data encoding="csv">
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
@@ -317,11 +322,6 @@
   <object id="423" x="736" y="1344" width="16" height="32"/>
   <object id="424" x="752" y="1344" width="32" height="16"/>
   <object id="425" x="768" y="1328" width="64" height="16"/>
- </objectgroup>
- <objectgroup id="6" name="Player" locked="1">
-  <object id="210" name="User" x="487.7" y="1389.73">
-   <point/>
-  </object>
  </objectgroup>
  <objectgroup id="5" name="Ores" locked="1">
   <object id="162" name="titanium" gid="5" x="954" y="702" width="16" height="16"/>
