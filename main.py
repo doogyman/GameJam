@@ -86,7 +86,12 @@ class Game:
         self.all_sprites.drawHitbox(self.game_surface, self.user.rect.center)
         
         # DEBUG: Draw green outline for the player
-        pygame.draw.rect(self.game_surface, (0, 255, 0), self.user.rect, 1)
+        offset = pygame.Vector2();
+        offset.x = -(self.user.rect.center[0] - BASEWIDTH / 2)
+        offset.y = -(self.user.rect.center[1] - BASEHEIGHT / 2)
+        
+        tempRect = pygame.rect(self.user.hitbox_rect.x + offset.x, self.user.hitbox_rect.y + offset.y, self.user.hitbox_rect.width, self.user.hitbox_rect.height)
+        pygame.draw.rect(self.game_surface, (0, 255, 0), tempRect, 5)
 
 
     async def run(self):
