@@ -22,6 +22,8 @@ class Game:
         self.running = True
 
         
+
+        
         self.all_sprites = AllSprites()
         self.collision_sprites = pygame.sprite.Group()
         self.ore_sprites = pygame.sprite.Group()

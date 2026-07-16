@@ -29,3 +29,7 @@ class MaterialSprite(pygame.sprite.Sprite):
             w, h = map(int, surf_or_size)
             self.image = pygame.Surface((max(1, w), max(1, h)), pygame.SRCALPHA)
             self.rect = self.image.get_frect(topleft=(int(topleft[0]), int(topleft[1])))
+        
+
+    def drawMessageBox(self, targetSurface, loadedMessageBox):
+        targetSurface.blit(loadedMessageBox, (100, 100))

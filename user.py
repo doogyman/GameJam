@@ -21,6 +21,8 @@ class User(Entity):
 
         self.sheet = pygame.image.load('assets/pixilart-sprite.png').convert_alpha()
 
+        self.aluminiumMessageBox = pygame.image.load('assets/aluminium-Sheet.png').convert_alpha()
+
         self.idle_front = [get_sprite(self.sheet, 1, 20, 32, 0, 0, 0, 1)]
         self.idle_right = [get_sprite(self.sheet, 5, 20, 32, 0, 0, 0, 1)]
         self.idle_left = [get_sprite(self.sheet, 9, 20, 32, 0, 0, 0, 1)]
@@ -65,8 +67,10 @@ class User(Entity):
             self.hitbox_rect.centery = int(self.pos.y)
             self.collision('v')  # vertical
 
+        self.collide_with_ores()
+        
         self.rect.center = self.hitbox_rect.center
-
+    
 
     def animate(self, dt):
         if self.direction.x > 0:
@@ -90,7 +94,7 @@ class User(Entity):
 
     def collision(self, direction):
         collision = False
-        print('self.hitbox_rect : ', self.hitbox_rect)
+        # print('self.hitbox_rect : ', self.hitbox_rect)
         for sprite in self.collision_sprites:
             if sprite.rect.colliderect(self.hitbox_rect):
                 print('sprite.rect : ', sprite.rect)
@@ -110,8 +114,10 @@ class User(Entity):
 
     def collide_with_ores(self):
         for sprite in self.ore_sprites:
+            # print('1')
             if sprite.rect.colliderect(self.hitbox_rect):
-                print("collided")
+                print("collided with ore")
+                sprite.drawMessageBox(sprite.rect, self.aluminiumMessageBox)
                 
     def update(self, dt):
         self.input()
