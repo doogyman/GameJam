@@ -116,8 +116,6 @@ class User(Entity):
         self.animate(dt)
 
 
-
-
     def printPosition(self):
         print(self.pos)
 
