@@ -6,10 +6,9 @@ from user import User
 from mouse import Mouse
 from pytmx import load_pygame
 from globals import *
+
+
 pygame.init()
-
-
-
 
 
 class Game:
@@ -17,7 +16,7 @@ class Game:
         # setup
         self.clock = pygame.time.Clock()
         pygame.display.set_caption("Stone Village")
-        self.screen = pygame.display.set_mode((SCREENWIDTH, SCREENHEIGHT))
+        self.screen = pygame.display.set_mode((SCREENWIDTH, SCREENHEIGHT), pygame.RESIZABLE)
         self.game_surface = pygame.Surface((BASEWIDTH, BASEHEIGHT))
         self.scaled_surface = pygame.Surface((SCREENWIDTH, SCREENHEIGHT))
         self.running = True
@@ -31,9 +30,11 @@ class Game:
     def setup(self):
         self.map = load_pygame("assets/firstMap.tmx")
 
+        # load the Tile layer 1 (tiles) 
         for x, y, image in self.map.get_layer_by_name("Tile Layer 1").tiles():
             Sprite((x * TILESIZE, y * TILESIZE), image, self.all_sprites)
 
+        # load the collision boxes 
         for obj in self.map.get_layer_by_name('CollisionBoxes'):
             surf = obj.image
             x, y = int(obj.x), int(obj.y)
@@ -41,11 +42,22 @@ class Game:
 
             CollisionSprite((x, y), (w, h), (self.all_sprites, self.collision_sprites))
 
+        # load the player starting point
         for obj in self.map.get_layer_by_name('Player'):
             print(obj.name)
             print(obj.x, obj.y)
             if obj.name == "User":
                 self.user = User((obj.x, obj.y), pygame.Surface((obj.width, obj.height)), self.all_sprites, self.collision_sprites)
+
+        # load the ores
+        for obj in self.map.get_layer_by_name('Ores'):
+            print(obj)
+            x = obj.x, obj.y
+            
+            
+            # CollisionSprite((x, y), (w, h), (self.all_sprites, self.collision_sprites))
+
+
 
         
 
