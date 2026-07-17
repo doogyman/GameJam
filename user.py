@@ -20,13 +20,18 @@ class User(Entity):
         self.basic = 'hello world'
         self.mousePositions = ()
 
+        
+
         self.sheet = pygame.image.load('assets/pixilart-sprite.png').convert_alpha()
+        
 
-        # aluminiumMessageBox
+        self.aluminiumMessageBoxesSheet = pygame.image.load('assets/aluminium-Sheet.png').convert_alpha()
 
-        self.aluminiumMessageBox = pygame.image.load('assets/aluminium-Sheet.png').convert_alpha()
-        # self.aluminiumMessageBox
-        pygame.transform.scale_by(self.aluminiumMessageBox, 5)
+        self.aluminiumMessageBox = [get_sprite(self.aluminiumMessageBoxesSheet, i, 40, 16, 0, 0, 0, 2) for i in range(10)]
+        self.oreCounter = 0
+        self.messageIndex = 0 # for controlling which frame of the animation is currently playing
+
+
 
         self.idle_front = [get_sprite(self.sheet, 1, 20, 32, 0, 0, 0, 1)]
         self.idle_right = [get_sprite(self.sheet, 5, 20, 32, 0, 0, 0, 1)]
@@ -37,6 +42,8 @@ class User(Entity):
         self.walk_right = [get_sprite(self.sheet, i + 4, 20, 32, 0, 0, 0, 1) for i in range(4)]
         self.walk_left = [get_sprite(self.sheet, i + 8, 20, 32, 0, 0, 0, 1) for i in range(4)]
         self.walk_back = [get_sprite(self.sheet, i + 12, 20, 32, 0, 0, 0, 1) for i in range(4)]
+
+        # print('self.walk_front : ', self.walk_front[0])
 
         self.status = 'front'
         self.frame_index = 0
@@ -127,19 +134,22 @@ class User(Entity):
                 # sprite.drawMessageBox(surface, self.aluminiumMessageBox)
 
     def draw(self, surface):
+        print('USER DRAW method special overwritten version of class method')
 
         for sprite in self.ore_sprites:
             if sprite.rect.colliderect(self.hitbox_rect):
+                self.oreCounter += 1
+
+                if self.oreCounter >= 2: # arbitrary value deciding how often message box animation changes
+                    self.oreCounter = 0
+                    self.messageIndex += 1
+
+                    if self.messageIndex >= 10:
+                        self.messageIndex = 0
+
                 print("collided with ore")
 
-                target_pos = sprite.rect
-                offset = pygame.Vector2()
-
-                offset.x = -(target_pos[0] - BASEWIDTH / 2)
-                offset.y = -(target_pos[1] - BASEHEIGHT / 2)
-                coords = (sprite.rect.x + offset.x, sprite.rect.y + offset.y)
-
-                surface.blit(self.aluminiumMessageBox, coords)
+                sprite.drawMessageBox(surface, self.aluminiumMessageBox[self.messageIndex], self.rect)
                 
     def update(self, dt, surface):
         self.input()

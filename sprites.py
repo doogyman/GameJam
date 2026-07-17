@@ -31,8 +31,23 @@ class MaterialSprite(pygame.sprite.Sprite):
             self.rect = self.image.get_frect(topleft=(int(topleft[0]), int(topleft[1])))
         
 
-    def drawMessageBox(self, targetSurface, loadedMessageBox):
+    def drawMessageBox(self, targetSurface, loadedMessageBox, playerRect):
         print('drawMessage FUNC called')
         print('targetSurface : ', targetSurface)
         print('loadedMessageBox : ', loadedMessageBox)
-        targetSurface.blit(loadedMessageBox, self.rect)
+
+        target_pos = playerRect
+        offset = pygame.Vector2()
+
+        offset.x = -(target_pos[0] - BASEWIDTH / 2)
+        offset.y = -(target_pos[1] - BASEHEIGHT / 2)
+        
+        otherOffset = pygame.Vector2()
+        otherOffset.x = -50
+        otherOffset.y = -50
+
+        coords = (self.rect.x + offset.x + otherOffset.x, self.rect.y + offset.y + otherOffset.y)
+
+        
+
+        targetSurface.blit(loadedMessageBox, coords)
