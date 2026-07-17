@@ -26,10 +26,12 @@ class User(Entity):
         
 
         self.aluminiumMessageBoxesSheet = pygame.image.load('assets/aluminium-Sheet.png').convert_alpha()
-
-        self.aluminiumMessageBox = [get_sprite(self.aluminiumMessageBoxesSheet, i, 40, 16, 0, 0, 0, 2) for i in range(10)]
+        self.aluminiumMessageBoxList = [get_sprite(self.aluminiumMessageBoxesSheet, i, 40, 16, 0, 0, 0, 2) for i in range(10)]
         self.oreCounter = 0
         self.messageIndex = 0 # for controlling which frame of the animation is currently playing
+
+        self.lithiumMessageBoxesSheet = pygame.image.load('assets/aluminium-Sheet.png').convert_alpha()
+        self.lithiumMessageBox = [get_sprite(self.lithiumMessageBoxesSheet, i, 40, 16, 0, 0, 0, 2) for i in range(10)]
 
 
 
@@ -138,18 +140,19 @@ class User(Entity):
 
         for sprite in self.ore_sprites:
             if sprite.rect.colliderect(self.hitbox_rect):
-                self.oreCounter += 1
+                
+                # self.oreCounter += 1
 
-                if self.oreCounter >= 2: # arbitrary value deciding how often message box animation changes
-                    self.oreCounter = 0
-                    self.messageIndex += 1
+                # if self.oreCounter >= 2: # arbitrary value deciding how often message box animation changes
+                #     self.oreCounter = 0
+                #     self.messageIndex += 1
 
-                    if self.messageIndex >= 10:
-                        self.messageIndex = 0
+                #     if self.messageIndex >= 10:
+                #         self.messageIndex = 0
 
                 print("collided with ore")
 
-                sprite.drawMessageBox(surface, self.aluminiumMessageBox[self.messageIndex], self.rect)
+                sprite.collidedWithPlayer(surface, self.aluminiumMessageBoxList, self.rect)
                 
     def update(self, dt, surface):
         self.input()
