@@ -1,3 +1,48 @@
+import pygame 
+import math
 
+from spritesheet import get_sprite
+class OreIndicator(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.is_indicator = False
+        self.is_visible = False
+        
+        self.material_sheets = [pygame.image.load("assets/titanium-Sheet.png").convert_alpha(), pygame.image.load("assets/lithium-Sheet.png").convert_alpha()]
+        
+        self.titanium_indicator = [get_sprite(self.material_sheets[0], i, 40, 15, 0, 0, 0, 1) for i in range(10)]
+        
+        self.lithium_indicator = [get_sprite(self.material_sheets[1], i, 30, 15, 0, 0, 0, 1) for i in range(10)]
+        
+        self.sprites = []
+        self.initial_indicator = None
+        self.frame_index = 0
+        self.animation_speed = 8 
+        
+        self.image: pygame.Surface = pygame.Surface((1, 1), pygame.SRCALPHA)
+        self.rect = self.image.get_frect(topleft=(0, 0))
+        
+    def indicator_type(self, ore_type):
+        if ore_type == 'titanium': #this check what kind of material it is 
+            self.sprites = self.titanium_indicator
+        elif ore_type == 'lithium':
+            self.sprites = self.lithium_indicator
+            
+    def animate(self, target_rect, dt):
+        if not self.sprites:
+            return
+        self.frame_index += self.animation_speed * dt
+        if self.frame_index >= len(self.sprites):
+            self.frame_index = 0
+        self.image = self.sprites[int(self.frame_index)]
+        self.rect = self.image.get_frect(center=target_rect.center)
+    
+    def show(self, groups):
+        self.add(groups)
+        self.is_visible = True
+    
+    def hide(self):
+        super().kill()
+        self.is_visible = False
     
         

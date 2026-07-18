@@ -2,9 +2,8 @@ import pygame
 from globals import *
 from entity import Entity
 from mouse import Mouse
-from load_image import load_image
 from spritesheet import get_sprite
-
+from ore_indicator import OreIndicator
 
 
 class User(Entity):
@@ -20,18 +19,18 @@ class User(Entity):
         self.basic = 'hello world'
         self.mousePositions = ()
 
-        
+        self.ore_indicator = OreIndicator()
 
         self.sheet = pygame.image.load('assets/pixilart-sprite.png').convert_alpha()
         
 
-        self.aluminiumMessageBoxesSheet = pygame.image.load('assets/aluminium-Sheet.png').convert_alpha()
+        """self.aluminiumMessageBoxesSheet = pygame.image.load('assets/titanium-Sheet.png').convert_alpha()
         self.aluminiumMessageBoxList = [get_sprite(self.aluminiumMessageBoxesSheet, i, 40, 16, 0, 0, 0, 2) for i in range(10)]
         self.oreCounter = 0
         self.messageIndex = 0 # for controlling which frame of the animation is currently playing
 
-        self.lithiumMessageBoxesSheet = pygame.image.load('assets/aluminium-Sheet.png').convert_alpha()
-        self.lithiumMessageBox = [get_sprite(self.lithiumMessageBoxesSheet, i, 40, 16, 0, 0, 0, 2) for i in range(10)]
+        self.lithiumMessageBoxesSheet = pygame.image.load('assets/titanium-Sheet.png').convert_alpha()
+        self.lithiumMessageBox = [get_sprite(self.lithiumMessageBoxesSheet, i, 40, 16, 0, 0, 0, 2) for i in range(10)]"""
 
 
 
@@ -126,16 +125,14 @@ class User(Entity):
             #print(f'Updating self.pos to: {self.rect.center}')
             self.pos = pygame.Vector2(self.hitbox_rect.center)
 
-    def collide_with_ores(self, surface):
+    def collide_with_ores(self):
         for sprite in self.ore_sprites:
             # print('1')
             if sprite.rect.colliderect(self.hitbox_rect):
-                print("collided with ore")
-                # surface.blit(self.aluminiumMessageBox, sprite.rect)
-                pygame.draw.circle(surface, (255, 255, 0), (self.rect.x, self.rect.y), 50)
-                # sprite.drawMessageBox(surface, self.aluminiumMessageBox)
+                return sprite
+        return None
 
-    def draw(self, surface):
+    """def draw(self, surface):
         print('USER DRAW method special overwritten version of class method')
 
         for sprite in self.ore_sprites:
@@ -152,13 +149,23 @@ class User(Entity):
 
                 print("collided with ore")
 
-                sprite.collidedWithPlayer(surface, self.aluminiumMessageBoxList, self.rect)
+                sprite.collidedWithPlayer(surface, self.aluminiumMessageBoxList, self.rect)"""
+    
+    def update_indicator(self, dt):
+        hovered_ore = self.collide_with_ores()
+        if hovered_ore:
+            self.ore_indicator.indicator_type(hovered_ore.ore_type)
+            self.ore_indicator.animate(hovered_ore.rect, dt)
+            self.ore_indicator.show(self.groups()[0])
+        else:
+            self.ore_indicator.hide()
+        
                 
-    def update(self, dt, surface):
+    def update(self, dt):
         self.input()
         self.move(dt)
         self.animate(dt)
-        self.collide_with_ores(surface)
+        self.update_indicator(dt)
 
 
     def printPosition(self):

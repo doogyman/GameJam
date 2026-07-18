@@ -20,8 +20,10 @@ class CollisionSprite(pygame.sprite.Sprite):
             self.rect = self.image.get_frect(topleft=(int(topleft[0]), int(topleft[1])))
 
 class MaterialSprite(pygame.sprite.Sprite):
-    def __init__(self, topleft, surf_or_size, groups):
+    def __init__(self, topleft, surf_or_size, groups, ore_type):
         super().__init__(groups)
+        
+        self.ore_type = ore_type
         if isinstance(surf_or_size, pygame.Surface):
             self.image = surf_or_size
             self.rect = self.image.get_frect(topleft=(int(topleft[0]), int(topleft[1])))

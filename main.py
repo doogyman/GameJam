@@ -62,15 +62,15 @@ class Game:
             print('obj : ', obj)
             x, y = int(obj.x), int(obj.y)
             w, h = int(obj.width), int(obj.height)
+            ore_type = obj.name
             
-            
-            MaterialSprite((x, y), obj.image, (self.all_sprites, self.ore_sprites))
+            MaterialSprite((x, y), obj.image, (self.all_sprites, self.ore_sprites), ore_type)
   
 
     def draw(self):  
         self.game_surface.fill((0, 0, 0))
         self.all_sprites.draw(self.game_surface, self.user.rect.center)
-        self.user.draw(self.game_surface)
+        #self.user.draw(self.game_surface)
         # self.ground_sprites
         
         if self.isDebugging:
@@ -87,7 +87,7 @@ class Game:
         self.all_sprites.drawHitbox(self.game_surface, self.user.rect.center)
         
         # DEBUG: Draw green outline for the player
-        offset = pygame.Vector2();
+        offset = pygame.Vector2()
         offset.x = -(self.user.rect.center[0] - BASEWIDTH / 2)
         offset.y = -(self.user.rect.center[1] - BASEHEIGHT / 2)
         
@@ -115,7 +115,7 @@ class Game:
             
             self.draw()
 
-            self.user.update(self.dt, self.game_surface)
+            self.user.update(self.dt)
 
 
             await asyncio.sleep(0)
