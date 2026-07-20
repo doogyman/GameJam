@@ -119,6 +119,7 @@ class Game:
 
 
             await asyncio.sleep(0)
+            
 async def main():
     game = Game()
     await game.run()

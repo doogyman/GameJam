@@ -11,7 +11,7 @@ class AllSprites(pygame.sprite.Group):
 
         ground_sprites = [sprite for sprite in self if hasattr(sprite, 'ground')]
         object_sprites = [sprite for sprite in self if not hasattr(sprite, 'ground') and not hasattr(sprite, 'is_visible')]
-        indicator_sprites = [sprite for sprite in self if hasattr(sprite, 'is_visible')]
+        indicator_sprites = [sprite for sprite in self if hasattr(sprite, 'is_visibe')]
 
         for sprite in ground_sprites:
             surface.blit(sprite.image, sprite.rect.topleft + self.offset)
@@ -34,8 +34,9 @@ class AllSprites(pygame.sprite.Group):
         self.offset.y = -(target_pos[1] - BASEHEIGHT / 2)
 
         # ground_sprites = [sprite for sprite in self if hasattr(sprite, 'ground')]
-        object_sprites = [sprite for sprite in self if not hasattr(sprite, 'ground')]
         player_sprite = [sprite for sprite in self if hasattr(sprite, 'Player')]
+        object_sprites = [sprite for sprite in self if not hasattr(sprite, 'ground') and not hasattr(sprite, 'is_visible')]
+        indicator_sprites = [sprite for sprite in self if hasattr(sprite, 'is_visibe')]
 
         # print('object_sprites : ', object_sprites)
 
@@ -45,6 +46,13 @@ class AllSprites(pygame.sprite.Group):
         #     rect = pygame.Rect(sprite.rect.x, sprite.rect.y, sprite.rect.width, sprite.rect.height)
 
         #     pygame.draw.rect(surface, (0, 0, 0), rect, width=1)
+        """otherOffset = pygame.Vector2()
+        otherOffset.x = 0
+        otherOffset.y = -3
+        for sprite in indicator_sprites:
+            rect = pygame.Rect(sprite.rect.x + self.offset.x + otherOffset.x, sprite.rect.y + self.offset.y + otherOffset.y, sprite.rect.width, sprite.rect.height)
+        
+            pygame.draw.rect(surface, (0, 0, 0), rect, width=1)"""
 
         for sprite in sorted(object_sprites, key=lambda sprite: sprite.rect.centery):
             # print('spritey : ', sprite.rect)
