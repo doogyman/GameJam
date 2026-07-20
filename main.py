@@ -80,7 +80,7 @@ class Game:
         pygame.display.flip()
     
     def debug(self):
-        print('debugging')
+        # print('debugging')
         # DEBUG: Draw red outlines for collision sprites
         # for sprite in self.collision_sprites:
         #     self.all_sprites.drawHitbox(self.game_surface, self.user.rect.center)

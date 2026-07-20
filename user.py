@@ -39,6 +39,9 @@ class User(Entity):
         self.lithiumMessageBoxesSheet = pygame.image.load('assets/titanium-Sheet.png').convert_alpha()
         self.lithiumMessageBox = [get_sprite(self.lithiumMessageBoxesSheet, i, 40, 16, 0, 0, 0, 2) for i in range(10)]"""
 
+        # health/battery bar
+        self.battery = float(1) # float from 0-1
+
 
 
         self.idle_front = [get_sprite(self.sheet, 1, 20, 32, 0, 0, 0, 1)]
