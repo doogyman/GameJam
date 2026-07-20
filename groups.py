@@ -24,7 +24,7 @@ class AllSprites(pygame.sprite.Group):
         otherOffset.y = -3
         for sprite in indicator_sprites:
             coords = (sprite.rect.x + self.offset.x + otherOffset.x, sprite.rect.y + self.offset.y + otherOffset.y)
-            print("loading")
+            # print("loading")
             surface.blit(sprite.image, coords)
 
         #surface.blit(loadedMessageBoxList[self.messageIndex], coords)

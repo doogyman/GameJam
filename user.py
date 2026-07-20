@@ -110,7 +110,7 @@ class User(Entity):
         # print('self.hitbox_rect : ', self.hitbox_rect)
         for sprite in self.collision_sprites:
             if sprite.rect.colliderect(self.hitbox_rect):
-                print('sprite.rect : ', sprite.rect)
+                # print('sprite.rect : ', sprite.rect)
 
                 collision = True
                 #print(f'COLLISION in {direction} with: {sprite}, rect: {sprite.rect}, player: {self.rect}')
