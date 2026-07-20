@@ -8,7 +8,7 @@ class OreIndicator(pygame.sprite.Sprite):
         self.is_indicator = False
         self.is_visible = False
         
-        self.material_sheets = [pygame.image.load("assets/titanium-Sheet.png").convert_alpha(), pygame.image.load("assets/lithium-Sheet.png").convert_alpha()]
+        self.material_sheets = [pygame.image.load("assets/aluminium-Sheet.png").convert_alpha(), pygame.image.load("assets/lithium-Sheet.png").convert_alpha()]
         
         self.titanium_indicator = [get_sprite(self.material_sheets[0], i, 40, 15, 0, 0, 0, 1) for i in range(10)]
         

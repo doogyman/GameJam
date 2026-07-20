@@ -19,6 +19,9 @@ class User(Entity):
         self.basic = 'hello world'
         self.mousePositions = ()
 
+        # for picking up things
+        self.items = []
+
         self.ore_indicator = OreIndicator()
 
         self.sheet = pygame.image.load('assets/pixilart-sprite.png').convert_alpha()
@@ -63,6 +66,9 @@ class User(Entity):
             keys = pygame.key.get_pressed()
             self.direction.x = int(keys[pygame.K_d]) - int(keys[pygame.K_a])
             self.direction.y = int(keys[pygame.K_s]) - int(keys[pygame.K_w])
+
+            if keys[pygame.K_o]:
+                print('o pressed !')
 
             #print(f"Direction: {self.direction}")
             
