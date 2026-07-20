@@ -76,10 +76,10 @@ class User(Entity):
                 print('self.hovered_ore : ', self.hovered_ore)
                 if (self.hovered_ore.ore_type == 'aluminium'):
                     print('picked up aluminium')
-                    self.items.aluminium += 1
+                    self.items['aluminium'] += 1
                 elif (self.hovered_ore.ore_type == 'lithium'):
                     print('picked up lithium')
-                    self.items.lithium += 1
+                    self.items['lithium'] += 1
                 
                 else:
                     print('something went kinda wrong')
@@ -154,7 +154,7 @@ class User(Entity):
             # print('1')
             if sprite.rect.colliderect(self.hitbox_rect):
                 return sprite
-        self.hovered_ore = None
+        # self.hovered_ore = None
         return None
 
     """def draw(self, surface):
@@ -180,6 +180,7 @@ class User(Entity):
     def update_indicator(self, dt):
         self.hovered_ore = self.collide_with_ores()
         if self.hovered_ore:
+            print(self.hovered_ore.ore_type)
             self.ore_indicator.indicator_type(self.hovered_ore.ore_type)
             self.ore_indicator.animate(self.hovered_ore.rect, dt)
             self.ore_indicator.show(self.groups()[0])
