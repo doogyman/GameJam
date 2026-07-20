@@ -20,7 +20,11 @@ class User(Entity):
         self.mousePositions = ()
 
         # for picking up things
-        self.items = []
+        self.items = {
+            'aluminium' : 0,
+            'lithium' : 0
+        }
+        self.hovered_ore = None
 
         self.ore_indicator = OreIndicator()
 
@@ -67,8 +71,22 @@ class User(Entity):
             self.direction.x = int(keys[pygame.K_d]) - int(keys[pygame.K_a])
             self.direction.y = int(keys[pygame.K_s]) - int(keys[pygame.K_w])
 
-            if keys[pygame.K_o]:
-                print('o pressed !')
+            if keys[pygame.K_o] and self.hovered_ore:
+                print('o is pressed!')
+                print('self.hovered_ore : ', self.hovered_ore)
+                if (self.hovered_ore.ore_type == 'aluminium'):
+                    print('picked up aluminium')
+                    self.items.aluminium += 1
+                elif (self.hovered_ore.ore_type == 'lithium'):
+                    print('picked up lithium')
+                    self.items.lithium += 1
+                
+                else:
+                    print('something went kinda wrong')
+                
+
+                self.hovered_ore.kill()
+
 
             #print(f"Direction: {self.direction}")
             
@@ -136,6 +154,7 @@ class User(Entity):
             # print('1')
             if sprite.rect.colliderect(self.hitbox_rect):
                 return sprite
+        self.hovered_ore = None
         return None
 
     """def draw(self, surface):
@@ -155,13 +174,14 @@ class User(Entity):
 
                 print("collided with ore")
 
-                sprite.collidedWithPlayer(surface, self.aluminiumMessageBoxList, self.rect)"""
+                sprite.collidedWithPlayer(surface, self.aluminiumMessageBoxList, self.rect)
+            """
     
     def update_indicator(self, dt):
-        hovered_ore = self.collide_with_ores()
-        if hovered_ore:
-            self.ore_indicator.indicator_type(hovered_ore.ore_type)
-            self.ore_indicator.animate(hovered_ore.rect, dt)
+        self.hovered_ore = self.collide_with_ores()
+        if self.hovered_ore:
+            self.ore_indicator.indicator_type(self.hovered_ore.ore_type)
+            self.ore_indicator.animate(self.hovered_ore.rect, dt)
             self.ore_indicator.show(self.groups()[0])
         else:
             self.ore_indicator.hide()
