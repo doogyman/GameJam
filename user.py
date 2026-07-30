@@ -28,7 +28,7 @@ class User(Entity):
 
         self.ore_indicator = OreIndicator()
 
-        self.sheet = pygame.image.load('assets/pixilart-sprite.png').convert_alpha()
+        self.sheet = pygame.image.load('assets/character-Sheet.png').convert_alpha()
         
 
         """self.aluminiumMessageBoxesSheet = pygame.image.load('assets/titanium-Sheet.png').convert_alpha()
@@ -44,15 +44,15 @@ class User(Entity):
 
 
 
-        self.idle_front = [get_sprite(self.sheet, 1, 20, 32, 0, 0, 0, 1)]
-        self.idle_right = [get_sprite(self.sheet, 5, 20, 32, 0, 0, 0, 1)]
-        self.idle_left = [get_sprite(self.sheet, 9, 20, 32, 0, 0, 0, 1)]
-        self.idle_back = [get_sprite(self.sheet, 13, 20, 32, 0, 0, 0, 1)]
+        self.idle_front = [get_sprite(self.sheet, 1, 16, 32, 0, 0, 0, 1)]
+        self.idle_right = [get_sprite(self.sheet, 5, 16, 32, 0, 0, 0, 1)]
+        self.idle_left = [get_sprite(self.sheet, 9, 16, 32, 0, 0, 0, 1)]
+        self.idle_back = [get_sprite(self.sheet, 13, 16, 32, 0, 0, 0, 1)]
 
-        self.walk_front = [get_sprite(self.sheet, i, 20, 32, 0, 0, 0, 1) for i in range(4)]
-        self.walk_right = [get_sprite(self.sheet, i + 4, 20, 32, 0, 0, 0, 1) for i in range(4)]
-        self.walk_left = [get_sprite(self.sheet, i + 8, 20, 32, 0, 0, 0, 1) for i in range(4)]
-        self.walk_back = [get_sprite(self.sheet, i + 12, 20, 32, 0, 0, 0, 1) for i in range(4)]
+        self.walk_front = [get_sprite(self.sheet, i, 16, 32, 0, 0, 0, 1) for i in range(4)]
+        self.walk_right = [get_sprite(self.sheet, i + 4, 16, 32, 0, 0, 0, 1) for i in range(4)]
+        self.walk_left = [get_sprite(self.sheet, i + 8, 16, 32, 0, 0, 0, 1) for i in range(4)]
+        self.walk_back = [get_sprite(self.sheet, i + 12, 16, 32, 0, 0, 0, 1) for i in range(4)]
 
         # print('self.walk_front : ', self.walk_front[0])
 
