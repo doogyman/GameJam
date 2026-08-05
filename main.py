@@ -20,9 +20,6 @@ class Game:
         self.game_surface = pygame.Surface((BASEWIDTH, BASEHEIGHT))
         self.scaled_surface = pygame.Surface((SCREENWIDTH, SCREENHEIGHT))
         self.running = True
-
-        
-
         
         self.all_sprites = AllSprites()
         self.collision_sprites = pygame.sprite.Group()
@@ -34,14 +31,29 @@ class Game:
         self.setup()
 
     def setup(self):
-        self.map = load_pygame("assets/firstMap.tmx")
+        self.map = load_pygame("assets/untitled.tmx")
 
         # load the Tile layer 1 (tiles) 
-        for x, y, image in self.map.get_layer_by_name("Tile Layer 1").tiles():
+        for x, y, image in self.map.get_layer_by_name("ground1").tiles():
+            Sprite((x * TILESIZE, y * TILESIZE), image, self.all_sprites)
+
+        for x, y, image in self.map.get_layer_by_name("ground2").tiles():
+            Sprite((x * TILESIZE, y * TILESIZE), image, self.all_sprites)
+
+        for x, y, image in self.map.get_layer_by_name("shadow").tiles():
+            Sprite((x * TILESIZE, y * TILESIZE), image, self.all_sprites)
+
+        for x, y, image in self.map.get_layer_by_name("walls1").tiles():
+            Sprite((x * TILESIZE, y * TILESIZE), image, self.all_sprites)
+
+        for x, y, image in self.map.get_layer_by_name("walls1.5").tiles():
+            Sprite((x * TILESIZE, y * TILESIZE), image, self.all_sprites)
+
+        for x, y, image in self.map.get_layer_by_name("walls2").tiles():
             Sprite((x * TILESIZE, y * TILESIZE), image, self.all_sprites)
 
         # load the collision boxes 
-        for obj in self.map.get_layer_by_name('CollisionBoxes'):
+        for obj in self.map.get_layer_by_name('collisionBoxes'):
             surf = obj.image
             x, y = int(obj.x), int(obj.y)
             w, h = obj.width, obj.height
@@ -49,7 +61,7 @@ class Game:
             CollisionSprite((x, y), (w, h), (self.all_sprites, self.collision_sprites))
 
         # load the player starting point
-        for obj in self.map.get_layer_by_name('Player'):
+        for obj in self.map.get_layer_by_name('player'):
             print(obj.name)
             print(obj.x, obj.y)
             if obj.name == "User":
@@ -58,17 +70,17 @@ class Game:
             # pygame.Surface((obj.width, obj.height))
 
         # load the ores
-        for obj in self.map.get_layer_by_name('Ores'):
+        """for obj in self.map.get_layer_by_name('Ores'):
             print('obj : ', obj)
             x, y = int(obj.x), int(obj.y)
             w, h = int(obj.width), int(obj.height)
             ore_type = obj.name
             
-            MaterialSprite((x, y), obj.image, (self.all_sprites, self.ore_sprites), ore_type)
+            MaterialSprite((x, y), obj.image, (self.all_sprites, self.ore_sprites), ore_type)"""
   
 
     def draw(self):  
-        self.game_surface.fill((0, 0, 0))
+        self.game_surface.fill((50, 50, 50))
         self.all_sprites.draw(self.game_surface, self.user.rect.center)
         #self.user.draw(self.game_surface)
         # self.ground_sprites
