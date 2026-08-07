@@ -23,7 +23,7 @@ class OreIndicator(pygame.sprite.Sprite):
         self.rect = self.image.get_frect(topleft=(0, 0))
         
     def indicator_type(self, ore_type):
-        if ore_type == 'titanium': #this check what kind of material it is 
+        if ore_type == 'aluminium': #this check what kind of material it is 
             self.sprites = self.titanium_indicator
         elif ore_type == 'lithium':
             self.sprites = self.lithium_indicator

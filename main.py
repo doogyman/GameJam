@@ -70,13 +70,13 @@ class Game:
             # pygame.Surface((obj.width, obj.height))
 
         # load the ores
-        """for obj in self.map.get_layer_by_name('Ores'):
+        for obj in self.map.get_layer_by_name('ores'):
             print('obj : ', obj)
             x, y = int(obj.x), int(obj.y)
             w, h = int(obj.width), int(obj.height)
             ore_type = obj.name
             
-            MaterialSprite((x, y), obj.image, (self.all_sprites, self.ore_sprites), ore_type)"""
+            MaterialSprite((x, y), obj.image, (self.all_sprites, self.ore_sprites), ore_type)
   
 
     def draw(self):  

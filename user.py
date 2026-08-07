@@ -66,6 +66,7 @@ class User(Entity):
         # movement
         self.direction = pygame.Vector2(0, 0)
         self.speed = 100
+        self.diagonal_speed = math.sqrt(self.speed ** 2 / 2)
         self.collision_sprites = collision_sprites
         self.ore_sprites = ore_sprites
 
@@ -98,17 +99,24 @@ class User(Entity):
             self.direction = self.direction.normalize()
 
         if self.direction.x != 0:
+            if self.direction.y != 0:
+                self.speed = self.diagonal_speed
+            else:
+                self.speed = 100
+            print("speed", self.speed)
             self.pos.x += self.direction.x * self.speed * dt
             self.hitbox_rect.centerx = int(self.pos.x)
             self.collision('h')  # horizontal
 
         if self.direction.y != 0:
+            if self.direction.x != 0:
+                self.speed = self.diagonal_speed
+            else:
+                self.speed = 100
+            print("speed", self.speed)
             self.pos.y += self.direction.y * self.speed * dt
             self.hitbox_rect.centery = int(self.pos.y)
             self.collision('v')  # vertical
-
-        # self.collide_with_ores()
-        
         self.rect.center = self.hitbox_rect.center
     
 

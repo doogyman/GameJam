@@ -1,4 +1,5 @@
 import pygame
+import math
 from pathlib import Path
 
 pygame.init()
