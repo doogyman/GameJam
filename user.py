@@ -101,20 +101,14 @@ class User(Entity):
             self.direction = self.direction.normalize()
 
         if self.direction.x != 0:
-            if self.direction.y != 0:
-                self.speed = self.diagonal_speed
-            else:
-                self.speed = 100
+
             print("speed", self.speed)
             self.pos.x += self.direction.x * self.speed * dt
             self.hitbox_rect.centerx = int(self.pos.x)
             self.collision('h')  # horizontal
 
         if self.direction.y != 0:
-            if self.direction.x != 0:
-                self.speed = self.diagonal_speed
-            else:
-                self.speed = 100
+        
             print("speed", self.speed)
             self.pos.y += self.direction.y * self.speed * dt
             self.hitbox_rect.centery = int(self.pos.y)
