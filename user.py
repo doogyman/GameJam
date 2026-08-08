@@ -3,7 +3,8 @@ from globals import *
 from entity import Entity
 from mouse import Mouse
 from spritesheet import get_sprite
-from ore_indicator import OreIndicator
+
+from UI.ore_indicator import OreIndicator
 
 
 class User(Entity):
@@ -18,7 +19,7 @@ class User(Entity):
         self.pos = pygame.math.Vector2(x, y)
         self.basic = 'hello world'
         self.mousePositions = ()
-
+    
         # for picking up things
         self.items = {
             'aluminium' : 0,
@@ -40,8 +41,9 @@ class User(Entity):
         self.lithiumMessageBox = [get_sprite(self.lithiumMessageBoxesSheet, i, 40, 16, 0, 0, 0, 2) for i in range(10)]"""
 
         # health/battery bar
+        
         self.battery = float(1) # float from 0-1
-
+        
 
 
         self.idle_front = [get_sprite(self.sheet, 1, 16, 32, 0, 0, 0, 1)]

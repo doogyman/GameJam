@@ -5,6 +5,7 @@ from groups import AllSprites
 from user import User
 from mouse import Mouse
 from pytmx import load_pygame
+from UI.health_bar import HealthBar
 from globals import *
 
 
@@ -27,6 +28,9 @@ class Game:
         
         # debugging
         self.isDebugging = False
+        
+        #battery
+        self.health_bar = HealthBar(self.all_sprites)
         
         self.setup()
 

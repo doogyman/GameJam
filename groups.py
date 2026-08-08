@@ -8,9 +8,10 @@ class AllSprites(pygame.sprite.Group):
     def draw(self, surface, target_pos):
         self.offset.x = -(target_pos[0] - BASEWIDTH / 2)
         self.offset.y = -(target_pos[1] - BASEHEIGHT / 2)
-
+        
+        battery = [sprite for sprite in self if hasattr(sprite, 'is_health_bar')]
         ground_sprites = [sprite for sprite in self if hasattr(sprite, 'ground')]
-        object_sprites = [sprite for sprite in self if not hasattr(sprite, 'ground') and not hasattr(sprite, 'is_visible')]
+        object_sprites = [sprite for sprite in self if not hasattr(sprite, 'ground') and not hasattr(sprite, 'is_visible') and not hasattr(sprite, 'is_health_bar')]
         indicator_sprites = [sprite for sprite in self if hasattr(sprite, 'is_visible')]
         print(indicator_sprites)
 
@@ -27,6 +28,9 @@ class AllSprites(pygame.sprite.Group):
             coords = (sprite.rect.x + self.offset.x + otherOffset.x, sprite.rect.y + self.offset.y + otherOffset.y)
             print("loading")
             surface.blit(sprite.image, coords)
+            
+        for sprite in battery:
+            surface.blit(sprite.image, sprite.rect.topleft)
 
         #surface.blit(loadedMessageBoxList[self.messageIndex], coords)
     
