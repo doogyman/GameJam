@@ -5,7 +5,7 @@ from groups import AllSprites
 from user import User
 from mouse import Mouse
 from pytmx import load_pygame
-from UI.health_bar import HealthBar
+from UI.health_bar import HealthBar, Cells
 from globals import *
 
 
@@ -31,6 +31,11 @@ class Game:
         
         #battery
         self.health_bar = HealthBar(self.all_sprites)
+        for i in range(6):
+            
+            self.battery_cells = Cells(6, self.all_sprites)
+            self.battery_cells.set_pos(i)
+            i+=1
         
         self.setup()
 
