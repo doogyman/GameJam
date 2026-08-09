@@ -67,7 +67,7 @@ class User(Entity):
         self.hitbox_rect = self.rect.inflate(-5, -15) # dest rect
         # movement
         self.direction = pygame.Vector2(0, 0)
-        self.speed = 100
+        self.speed = 75
         self.diagonal_speed = math.sqrt(self.speed ** 2 / 2)
         self.collision_sprites = collision_sprites
         self.ore_sprites = ore_sprites
@@ -97,25 +97,24 @@ class User(Entity):
             #print(f"Direction: {self.direction}")
             
     def move(self, dt):
+        prev_pos = self.pos.copy()
         if self.direction.length_squared() > 0:
             self.direction = self.direction.normalize()
 
         if self.direction.x != 0:
-
             print("speed", self.speed)
             self.pos.x += self.direction.x * self.speed * dt
-            self.hitbox_rect.centerx = int(self.pos.x)
+            self.hitbox_rect.centerx = round(self.pos.x)
             self.collision('h')  # horizontal
 
         if self.direction.y != 0:
-        
             print("speed", self.speed)
             self.pos.y += self.direction.y * self.speed * dt
-            self.hitbox_rect.centery = int(self.pos.y)
+            self.hitbox_rect.centery = round(self.pos.y)
             self.collision('v')  # vertical
         self.rect.center = self.hitbox_rect.center
     
-
+        print((self.pos - prev_pos).length() / dt)
     def animate(self, dt):
         if self.direction.x > 0:
             self.status = "right"; sprites = self.walk_right
@@ -151,6 +150,7 @@ class User(Entity):
                 if direction == 'v':
                     if self.direction.y < 0: self.hitbox_rect.top = sprite.rect.bottom
                     elif self.direction.y > 0: self.hitbox_rect.bottom = sprite.rect.top
+                break
                 #print(f"collision: {collision}")
         if collision:
             #print(f'Updating self.pos to: {self.rect.center}')
