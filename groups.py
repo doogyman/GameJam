@@ -13,7 +13,7 @@ class AllSprites(pygame.sprite.Group):
         ground_sprites = [sprite for sprite in self if hasattr(sprite, 'ground')]
         object_sprites = [sprite for sprite in self if not hasattr(sprite, 'ground') and not hasattr(sprite, 'is_visible') and not hasattr(sprite, 'is_health_bar')]
         indicator_sprites = [sprite for sprite in self if hasattr(sprite, 'is_visible')]
-        print(indicator_sprites)
+        # print(indicator_sprites)
 
         for sprite in ground_sprites:
             surface.blit(sprite.image, sprite.rect.topleft + self.offset)
@@ -26,7 +26,7 @@ class AllSprites(pygame.sprite.Group):
         otherOffset.y = -3
         for sprite in indicator_sprites:
             coords = (sprite.rect.x + self.offset.x + otherOffset.x, sprite.rect.y + self.offset.y + otherOffset.y)
-            print("loading")
+            # print("loading")
             surface.blit(sprite.image, coords)
             
         for sprite in battery:

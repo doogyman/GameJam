@@ -105,7 +105,7 @@ class User(Entity):
                 self.speed = self.diagonal_speed
             else:
                 self.speed = 100
-            print("speed", self.speed)
+            # print("speed", self.speed)
             self.pos.x += self.direction.x * self.speed * dt
             self.hitbox_rect.centerx = int(self.pos.x)
             self.collision('h')  # horizontal
@@ -115,7 +115,7 @@ class User(Entity):
                 self.speed = self.diagonal_speed
             else:
                 self.speed = 100
-            print("speed", self.speed)
+            # print("speed", self.speed)
             self.pos.y += self.direction.y * self.speed * dt
             self.hitbox_rect.centery = int(self.pos.y)
             self.collision('v')  # vertical
@@ -193,7 +193,7 @@ class User(Entity):
     def update_indicator(self, dt):
         self.hovered_ore = self.collide_with_ores()
         if self.hovered_ore:
-            print(self.hovered_ore.ore_type)
+            # print(self.hovered_ore.ore_type)
             self.ore_indicator.indicator_type(self.hovered_ore.ore_type)
             self.ore_indicator.animate(self.hovered_ore.rect, dt)
             self.ore_indicator.show(self.groups()[0])
@@ -217,7 +217,7 @@ class User(Entity):
     
     def movePlayer(self, mousePos):
         self.pos = pygame.math.Vector2(mousePos[0], mousePos[1])
-        print('self.pos : ', self.pos)
+        # print('self.pos : ', self.pos)
 
 
     def moveToMouse(self):
