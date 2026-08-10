@@ -3,8 +3,8 @@ from globals import *
 from entity import Entity
 from mouse import Mouse
 from spritesheet import get_sprite
-
 from UI.ore_indicator import OreIndicator
+from UI.health_bar import *
 
 
 class User(Entity):
@@ -30,22 +30,17 @@ class User(Entity):
         self.ore_indicator = OreIndicator()
 
         self.sheet = pygame.image.load('assets/character-Sheet.png').convert_alpha()
+
+        #battery
+        self.battery_hp = 5 #secs
+        self.health_bar = HealthBar(6, groups)
+        self.battery_cells = []
+        for i in range(6):
+            self.cell = Cell(i, 6, groups)
+            self.cell.set_pos(i)
+            self.battery_cells.append(self.cell)
+        print("cells:", self.battery_cells)
         
-
-        """self.aluminiumMessageBoxesSheet = pygame.image.load('assets/titanium-Sheet.png').convert_alpha()
-        self.aluminiumMessageBoxList = [get_sprite(self.aluminiumMessageBoxesSheet, i, 40, 16, 0, 0, 0, 2) for i in range(10)]
-        self.oreCounter = 0
-        self.messageIndex = 0 # for controlling which frame of the animation is currently playing
-
-        self.lithiumMessageBoxesSheet = pygame.image.load('assets/titanium-Sheet.png').convert_alpha()
-        self.lithiumMessageBox = [get_sprite(self.lithiumMessageBoxesSheet, i, 40, 16, 0, 0, 0, 2) for i in range(10)]"""
-
-        # health/battery bar
-        
-        self.battery = float(1) # float from 0-1
-        
-
-
         self.idle_front = [get_sprite(self.sheet, 1, 16, 32, 0, 0, 0, 1)]
         self.idle_right = [get_sprite(self.sheet, 5, 16, 32, 0, 0, 0, 1)]
         self.idle_left = [get_sprite(self.sheet, 9, 16, 32, 0, 0, 0, 1)]
@@ -61,11 +56,14 @@ class User(Entity):
         self.status = 'front'
         self.frame_index = 0
         self.animation_speed = [float(3), float(7.5)]  # [idle, walk]
+        
         # set the initial image and rect
         self.image: pygame.Surface = self.idle_front[0]
         self.rect = self.image.get_rect(center=self.pos) # source rect
         self.hitbox_rect = self.rect.inflate(-5, -15) # dest rect
+        
         # movement
+        self.is_moving = False
         self.direction = pygame.Vector2(0, 0)
         self.speed = 75
         self.diagonal_speed = math.sqrt(self.speed ** 2 / 2)
@@ -102,19 +100,20 @@ class User(Entity):
             self.direction = self.direction.normalize()
 
         if self.direction.x != 0:
-            print("speed", self.speed)
+            self.is_moving = True
             self.pos.x += self.direction.x * self.speed * dt
             self.hitbox_rect.centerx = round(self.pos.x)
             self.collision('h')  # horizontal
 
         if self.direction.y != 0:
-            print("speed", self.speed)
+            self.is_moving = True
             self.pos.y += self.direction.y * self.speed * dt
             self.hitbox_rect.centery = round(self.pos.y)
             self.collision('v')  # vertical
         self.rect.center = self.hitbox_rect.center
     
         print((self.pos - prev_pos).length() / dt)
+        
     def animate(self, dt):
         if self.direction.x > 0:
             self.status = "right"; sprites = self.walk_right
@@ -141,7 +140,6 @@ class User(Entity):
         for sprite in self.collision_sprites:
             if sprite.rect.colliderect(self.hitbox_rect):
                 # print('sprite.rect : ', sprite.rect)
-
                 collision = True
                 #print(f'COLLISION in {direction} with: {sprite}, rect: {sprite.rect}, player: {self.rect}')
                 if direction == 'h':
@@ -163,26 +161,6 @@ class User(Entity):
                 return sprite
         # self.hovered_ore = None
         return None
-
-    """def draw(self, surface):
-        print('USER DRAW method special overwritten version of class method')
-
-        for sprite in self.ore_sprites:
-            if sprite.rect.colliderect(self.hitbox_rect):
-                
-                # self.oreCounter += 1
-
-                # if self.oreCounter >= 2: # arbitrary value deciding how often message box animation changes
-                #     self.oreCounter = 0
-                #     self.messageIndex += 1
-
-                #     if self.messageIndex >= 10:
-                #         self.messageIndex = 0
-
-                print("collided with ore")
-
-                sprite.collidedWithPlayer(surface, self.aluminiumMessageBoxList, self.rect)
-            """
     
     def update_indicator(self, dt):
         self.hovered_ore = self.collide_with_ores()
@@ -193,12 +171,21 @@ class User(Entity):
             self.ore_indicator.show(self.groups()[0])
         else:
             self.ore_indicator.hide()
+            
+    def update_cells(self, dt):
         
+        if self.is_moving and self.battery_hp > 0:
+            self.battery_hp -= dt
+            if self.battery_hp < 2:
+                self.cell.animate(dt)
+        if self.battery_hp <= 0:
+            self.cell.hide()
                 
     def update(self, dt):
         self.input()
         self.move(dt)
         self.animate(dt)
+        self.update_cells(dt)
         self.update_indicator(dt)
 
 
@@ -221,11 +208,3 @@ class User(Entity):
 
         # then, move the player to that spot
         self.movePlayer(mousePos)
-
-
-
-
-
-                
-
-        

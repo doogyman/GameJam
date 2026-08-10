@@ -1,23 +1,24 @@
 from globals import *
 from spritesheet import get_sprite
 class HealthBar(pygame.sprite.Sprite):
-    def __init__(self, id, *groups):
+    def __init__(self, capacity: int, *groups):
         super().__init__(groups)
         self.x = 5
         self.y = 5
-        self.id = id
-        
-        self.is_health_bar = True
         self.pos = pygame.math.Vector2(self.x, self.y)
+        
+        self.capacity = capacity
+        self.is_health_bar = True
+        self.is_visible = False
         
         self.image = pygame.image.load("assets/health_bar.png").convert_alpha()
         self.rect = self.image.get_rect(topleft=self.pos)
         
-class Cells(HealthBar):
-    def __init__(self, id, *groups):
-        HealthBar.__init__(self, id, groups)
-   
-        self.is_cell = True
+class Cell(HealthBar):
+    def __init__(self, id, capacity, *groups):
+        HealthBar.__init__(self, capacity, groups)
+        
+        self.id = id
         
         self.offset_x = 3
         self.offset_y = 6
@@ -36,6 +37,9 @@ class Cells(HealthBar):
         
         self.status = 'healthy'
         
+        self.frame_index = 0
+        self.animation_speed = 2
+        
     def set_pos(self, index, increment=6):
         offset = index * increment
         self.pos.x += offset
@@ -43,6 +47,14 @@ class Cells(HealthBar):
         self.rect.topleft = self.pos
         print(self.rect.topleft)
         
+    def animate(self, dt):
+        self.frame_index += self.animation_speed * dt
+        if self.frame_index >= len(self.cell_flash):
+            self.frame_index = 0
+            
+        self.image = self.cell_flash[int(self.frame_index)]
+        self.rect = self.image.get_rect(center=self.rect.center)
     #TODO do animation when the time is 80% complete
-        
-        
+    def hide(self):
+        super().kill()
+        self.is_visible = False

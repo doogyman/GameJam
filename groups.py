@@ -14,7 +14,7 @@ class AllSprites(pygame.sprite.Group):
         for sprite in self:
             if hasattr(sprite, 'ground'):
                 self.ground_sprites.add(sprite)
-            elif hasattr(sprite, 'is_visible'):
+            elif hasattr(sprite, 'is_indicator'):
                 self.indicator_sprites.add(sprite)
             elif hasattr(sprite, 'is_health_bar'):
                 self.battery.add(sprite)

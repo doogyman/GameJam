@@ -5,7 +5,6 @@ from groups import AllSprites
 from user import User
 from mouse import Mouse
 from pytmx import load_pygame
-from UI.health_bar import HealthBar, Cells
 from globals import *
 
 
@@ -29,14 +28,6 @@ class Game:
         # debugging
         self.isDebugging = False
         
-        #battery
-        self.health_bar = HealthBar(6,self.all_sprites)
-        for i in range(6):
-            
-            self.battery_cells = Cells(6, self.all_sprites)
-            self.battery_cells.set_pos(i)
-            
-            i+=1
         
         self.setup()
 
@@ -87,8 +78,6 @@ class Game:
             ore_type = obj.name
             
             MaterialSprite((x, y), obj.image, (self.all_sprites, self.ore_sprites), ore_type)
-  
-
     def draw(self):  
         self.game_surface.fill((50, 50, 50))
         self.all_sprites.draw(self.game_surface, self.user.rect.center)
