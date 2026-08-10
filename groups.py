@@ -4,34 +4,46 @@ class AllSprites(pygame.sprite.Group):
     def __init__(self):
         super().__init__()
         self.offset = pygame.Vector2()
-    
+        
+        self.ground_sprites = pygame.sprite.Group()
+        self.object_sprites = pygame.sprite.Group()
+        self.indicator_sprites = pygame.sprite.Group()
+        self.battery = pygame.sprite.Group()
+        
+    def catagorise(self):
+        for sprite in self:
+            if hasattr(sprite, 'ground'):
+                self.ground_sprites.add(sprite)
+            elif hasattr(sprite, 'is_visible'):
+                self.indicator_sprites.add(sprite)
+            elif hasattr(sprite, 'is_health_bar'):
+                self.battery.add(sprite)
+            else:
+                self.object_sprites.add(sprite)
+        
     def draw(self, surface, target_pos):
         self.offset.x = -(target_pos[0] - BASEWIDTH / 2)
         self.offset.y = -(target_pos[1] - BASEHEIGHT / 2)
         
-        battery = [sprite for sprite in self if hasattr(sprite, 'is_health_bar')]
-        ground_sprites = [sprite for sprite in self if hasattr(sprite, 'ground')]
-        object_sprites = [sprite for sprite in self if not hasattr(sprite, 'ground') and not hasattr(sprite, 'is_visible') and not hasattr(sprite, 'is_health_bar')]
-        indicator_sprites = [sprite for sprite in self if hasattr(sprite, 'is_visible')]
-        # print(indicator_sprites)
+        self.catagorise()
 
-        for sprite in ground_sprites:
+
+        for sprite in self.ground_sprites:
             surface.blit(sprite.image, sprite.rect.topleft + self.offset)
 
-        for sprite in sorted(object_sprites, key=lambda sprite: sprite.rect.centery):
+        for sprite in sorted(self.object_sprites, key=lambda sprite: sprite.rect.centery):
             surface.blit(sprite.image, sprite.rect.topleft + self.offset)
             
         otherOffset = pygame.Vector2()
         otherOffset.x = 0
         otherOffset.y = -3
-        for sprite in indicator_sprites:
+        for sprite in self.indicator_sprites:
             coords = (sprite.rect.x + self.offset.x + otherOffset.x, sprite.rect.y + self.offset.y + otherOffset.y)
             # print("loading")
             surface.blit(sprite.image, coords)
             
-        for sprite in battery:
+        for sprite in self.battery:
             surface.blit(sprite.image, sprite.rect.topleft)
-
         #surface.blit(loadedMessageBoxList[self.messageIndex], coords)
     
     def drawHitbox(self, surface, target_pos):

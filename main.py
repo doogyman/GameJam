@@ -30,11 +30,12 @@ class Game:
         self.isDebugging = False
         
         #battery
-        self.health_bar = HealthBar(self.all_sprites)
+        self.health_bar = HealthBar(6,self.all_sprites)
         for i in range(6):
             
             self.battery_cells = Cells(6, self.all_sprites)
             self.battery_cells.set_pos(i)
+            
             i+=1
         
         self.setup()

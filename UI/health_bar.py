@@ -9,7 +9,6 @@ class HealthBar(pygame.sprite.Sprite):
         
         self.is_health_bar = True
         self.pos = pygame.math.Vector2(self.x, self.y)
-        self.cells = []
         
         self.image = pygame.image.load("assets/health_bar.png").convert_alpha()
         self.rect = self.image.get_rect(topleft=self.pos)
@@ -17,15 +16,16 @@ class HealthBar(pygame.sprite.Sprite):
 class Cells(HealthBar):
     def __init__(self, id, *groups):
         HealthBar.__init__(self, id, groups)
-        self.cells = []
+   
+        self.is_cell = True
         
         self.offset_x = 3
         self.offset_y = 6
         
-        self.cell_x = self.x + self.offset_x
-        self.cell_y = self.y + self.offset_y
+        self.x = self.x + self.offset_x
+        self.y = self.y + self.offset_y
         
-        self.cell_pos = pygame.Vector2(self.cell_x, self.cell_y)
+        self.pos = pygame.Vector2(self.x, self.y)
         
         self.sheet = pygame.image.load("assets/cell-sheet.png")
         self.cell_flash = [get_sprite(self.sheet, i, 6, 4, 0, 0, 0, 1) for i in range(2)]
@@ -37,10 +37,11 @@ class Cells(HealthBar):
         self.status = 'healthy'
         
     def set_pos(self, index, increment=6):
-        self.pos.x += increment * index
-        self.pos.y = self.cell_y
+        offset = index * increment
+        self.pos.x += offset
         
-        self.rect.topleft  = self.pos
+        self.rect.topleft = self.pos
+        print(self.rect.topleft)
         
     #TODO do animation when the time is 80% complete
         
