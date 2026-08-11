@@ -86,7 +86,12 @@ class Game:
         
         if self.isDebugging:
             self.debug()
-        pygame.transform.scale(self.game_surface, (SCREENWIDTH, SCREENHEIGHT), self.scaled_surface)
+
+        width, height = pygame.display.get_surface().get_size()
+        print('w, h : ', width, height)
+
+        self.scaled_surface = pygame.Surface((width, height))
+        pygame.transform.scale(self.game_surface, (width, height), self.scaled_surface)
         self.screen.blit(self.scaled_surface, (0, 0))
         pygame.display.flip()
     
