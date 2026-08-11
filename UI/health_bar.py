@@ -1,4 +1,4 @@
-from globals import *
+from globals import BASEHEIGHT as BASEHEIGHT, BASEWIDTH as BASEWIDTH, FPS as FPS, Globals as Globals, Path as Path, SCALE as SCALE, SCREENHEIGHT as SCREENHEIGHT, SCREENWIDTH as SCREENWIDTH, TILESIZE as TILESIZE, math as math, pygame as pygame
 from spritesheet import get_sprite
 class HealthBar(pygame.sprite.Sprite):
     def __init__(self, capacity: int, *groups):

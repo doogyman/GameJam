@@ -35,6 +35,7 @@ class User(Entity):
         self.battery_hp = 5 #secs
         self.health_bar = HealthBar(6, groups)
         self.battery_cells = []
+        self.battery_capacity = len(self.battery_cells)
         for i in range(6):
             self.cell = Cell(i, 6, groups)
             self.cell.set_pos(i)
@@ -100,20 +101,21 @@ class User(Entity):
             self.direction = self.direction.normalize()
 
         if self.direction.x != 0:
-            self.is_moving = True
             self.pos.x += self.direction.x * self.speed * dt
             self.hitbox_rect.centerx = round(self.pos.x)
             self.collision('h')  # horizontal
-
         if self.direction.y != 0:
-            self.is_moving = True
             self.pos.y += self.direction.y * self.speed * dt
             self.hitbox_rect.centery = round(self.pos.y)
             self.collision('v')  # vertical
+
         self.rect.center = self.hitbox_rect.center
     
-        print((self.pos - prev_pos).length() / dt)
-        
+        if (self.pos - prev_pos).length() / dt == 0:
+            print("actual speeed:", (self.pos - prev_pos).length() / dt )
+            self.is_moving = False
+        else:
+            self.is_moving = True # this is to check whether the user is moving or not
     def animate(self, dt):
         if self.direction.x > 0:
             self.status = "right"; sprites = self.walk_right
@@ -159,7 +161,6 @@ class User(Entity):
             # print('1')
             if sprite.rect.colliderect(self.hitbox_rect):
                 return sprite
-        # self.hovered_ore = None
         return None
     
     def update_indicator(self, dt):
@@ -173,38 +174,30 @@ class User(Entity):
             self.ore_indicator.hide()
             
     def update_cells(self, dt):
-        
+        print(f"speed: {self.speed}")
+ 
         if self.is_moving and self.battery_hp > 0:
             self.battery_hp -= dt
-            if self.battery_hp < 2:
-                self.cell.animate(dt)
-        if self.battery_hp <= 0:
-            self.cell.hide()
+            print(f"battery_health: {self.battery_hp}")
+        if self.battery_hp < 2:
+            print("animation")
+            self.cell.animate(dt)
                 
+        elif self.battery_hp <= 0:
+            print("deleting")
+            self.cell.hide()
+            self.battery_cells.pop()
+            self.battery_hp = 5
+            index = len(self.battery_cells) - 1
+            self.cell = self.battery_cells[index]
+            index-=1
+            
+        elif self.battery_capacity == 0:
+            return None
+            
     def update(self, dt):
         self.input()
         self.move(dt)
         self.animate(dt)
         self.update_cells(dt)
         self.update_indicator(dt)
-
-
-    def printPosition(self):
-        print(self.pos)
-
-    def getUpdateReturnMousePos(self):
-        mousePos = self.mouse.getUpdateMousePos()
-        return mousePos
-    
-    def movePlayer(self, mousePos):
-        self.pos = pygame.math.Vector2(mousePos[0], mousePos[1])
-        # print('self.pos : ', self.pos)
-
-
-    def moveToMouse(self):
-        #first step is to get the mouse coords
-        mousePos = self.getUpdateReturnMousePos(pygame.mouse)
-        print('mousePos : ', mousePos)
-
-        # then, move the player to that spot
-        self.movePlayer(mousePos)
