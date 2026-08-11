@@ -45,7 +45,7 @@ class AllSprites(pygame.sprite.Group):
         for sprite in sorted(self.sprites(), key = lambda sprite: sprite.rect.centery):
             if hasattr(sprite, 'ground') and sprite.groundType != 'wall':
                 continue
-            elif hasattr(sprite, 'is_visible'):
+            elif hasattr(sprite, 'is_indicator'):
                 continue
             else:
                 # print(counter, ' ', sprite.rect.centery)

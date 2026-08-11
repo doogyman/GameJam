@@ -111,8 +111,11 @@ class User(Entity):
 
         self.rect.center = self.hitbox_rect.center
     
-        print((self.pos - prev_pos).length() / dt)
-
+        if (self.pos - prev_pos).length() / dt == 0:
+            print("actual speeed:", (self.pos - prev_pos).length() / dt )
+            self.is_moving = False
+        else:
+            self.is_moving = True # this is to check whether the user is moving or not
     def animate(self, dt):
         if self.direction.x > 0:
             self.status = "right"; sprites = self.walk_right
@@ -176,7 +179,7 @@ class User(Entity):
         if self.is_moving and self.battery_hp > 0:
             self.battery_hp -= dt
             print(f"battery_health: {self.battery_hp}")
-        if self.battery_hp < 2:
+        if self.battery_hp < 2 and self.battery_hp>0:
             print("animation")
             self.cell.animate(dt)
                 
