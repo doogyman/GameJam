@@ -78,7 +78,16 @@ class Game:
             ore_type = obj.name
             
             MaterialSprite((x, y), obj.image, (self.all_sprites, self.ore_sprites), ore_type)
-    def draw(self):  
+    def draw(self):
+        actualWidth, actualHeight = pygame.display.get_surface().get_size()
+        print('actualWidth, actualHeight : ', actualWidth, actualHeight)
+        wMultiplier = actualWidth / SCREENWIDTH
+        hMultiplier = actualHeight / SCREENHEIGHT
+        width = BASEWIDTH * wMultiplier
+        height = BASEHEIGHT * hMultiplier
+
+        self.game_surface = pygame.Surface((width, height))
+
         self.game_surface.fill((153, 145, 126))
         self.all_sprites.draw(self.game_surface, self.user.rect.center)
         #self.user.draw(self.game_surface)
@@ -87,11 +96,10 @@ class Game:
         if self.isDebugging:
             self.debug()
 
-        width, height = pygame.display.get_surface().get_size()
-        print('w, h : ', width, height)
+        
 
-        self.scaled_surface = pygame.Surface((width, height))
-        pygame.transform.scale(self.game_surface, (width, height), self.scaled_surface)
+        self.scaled_surface = pygame.Surface((actualWidth, actualHeight))
+        pygame.transform.scale(self.game_surface, (actualWidth, actualHeight), self.scaled_surface)
         self.screen.blit(self.scaled_surface, (0, 0))
         pygame.display.flip()
     
