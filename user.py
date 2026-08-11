@@ -61,8 +61,12 @@ class User(Entity):
         # set the initial image and rect
         self.image: pygame.Surface = self.idle_front[0]
         self.rect = self.image.get_rect(center=self.pos) # source rect
+<<<<<<< Updated upstream
         self.hitbox_rect = self.rect.inflate(-5, -15) # dest rect
         
+=======
+        self.hitbox_rect = self.rect.inflate(-5, -20) # dest rect (x, y)
+>>>>>>> Stashed changes
         # movement
         self.is_moving = False
         self.direction = pygame.Vector2(0, 0)
@@ -111,11 +115,16 @@ class User(Entity):
 
         self.rect.center = self.hitbox_rect.center
     
+<<<<<<< Updated upstream
         if (self.pos - prev_pos).length() / dt == 0:
             print("actual speeed:", (self.pos - prev_pos).length() / dt )
             self.is_moving = False
         else:
             self.is_moving = True # this is to check whether the user is moving or not
+=======
+        print((self.pos - prev_pos).length() / dt)
+
+>>>>>>> Stashed changes
     def animate(self, dt):
         if self.direction.x > 0:
             self.status = "right"; sprites = self.walk_right

@@ -11,6 +11,9 @@ class AllSprites(pygame.sprite.Group):
         self.battery = pygame.sprite.Group()
         
     def catagorise(self):
+        # print('beginning of categorise, len(self.indicator_sprites) : ', len(self.indicator_sprites))
+        # pygame sprite groups only hold unique sprites; adding a sprite to a group more than once won't make it appear twice in the list. Code below works
+
         for sprite in self:
             if hasattr(sprite, 'ground'):
                 self.ground_sprites.add(sprite)
@@ -20,20 +23,42 @@ class AllSprites(pygame.sprite.Group):
                 self.battery.add(sprite)
             else:
                 self.object_sprites.add(sprite)
+
+        # print('end of categorise, len(self.indicator_sprites) : ', len(self.indicator_sprites))
+
         
     def draw(self, surface, target_pos):
         self.offset.x = -(target_pos[0] - BASEWIDTH / 2)
         self.offset.y = -(target_pos[1] - BASEHEIGHT / 2)
         
         self.catagorise()
+        print('len(self.indicator_sprites) : ', len(self.indicator_sprites ))
 
-
+        # blit ground sprites which aren't walls
         for sprite in self.ground_sprites:
-            surface.blit(sprite.image, sprite.rect.topleft + self.offset)
+            if sprite.groundType != 'wall':
+                surface.blit(sprite.image, sprite.rect.topleft + self.offset)
+            # print('sprite.groundType !! : ', sprite.groundType)
 
-        for sprite in sorted(self.object_sprites, key=lambda sprite: sprite.rect.centery):
-            surface.blit(sprite.image, sprite.rect.topleft + self.offset)
-            
+        # check if sprite is not a ground sprite because we've already blitted those and not a indicator sprite because we're about to blit those (and ore splits aren't blit in this part of the game btw)
+        counter = 0
+        for sprite in sorted(self.sprites(), key = lambda sprite: sprite.rect.centery):
+            if hasattr(sprite, 'ground') and sprite.groundType != 'wall':
+                continue
+            elif hasattr(sprite, 'is_visible'):
+                continue
+            else:
+                # print(counter, ' ', sprite.rect.centery)
+                surface.blit(sprite.image, sprite.rect.topleft + self.offset)
+                counter += 1
+
+        # for sprite in self.ground_sprites:
+        #     surface.blit(sprite.image, sprite.rect.topleft + self.offset)
+
+        # for sprite in sorted(self.object_sprites, key=lambda sprite: sprite.rect.centery):
+        #     surface.blit(sprite.image, sprite.rect.topleft + self.offset)
+        
+        #blitting indicator sprites
         otherOffset = pygame.Vector2()
         otherOffset.x = 0
         otherOffset.y = -3

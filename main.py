@@ -3,7 +3,7 @@ import pygame
 from sprites import *
 from groups import AllSprites 
 from user import User
-from mouse import Mouse
+# from mouse import Mouse
 from pytmx import load_pygame
 from globals import *
 
@@ -36,22 +36,22 @@ class Game:
 
         # load the Tile layer 1 (tiles) 
         for x, y, image in self.map.get_layer_by_name("ground1").tiles():
-            Sprite((x * TILESIZE, y * TILESIZE), image, self.all_sprites)
+            Sprite((x * TILESIZE, y * TILESIZE), image, {'groundType': 'ground1'}, self.all_sprites)
 
         for x, y, image in self.map.get_layer_by_name("ground2").tiles():
-            Sprite((x * TILESIZE, y * TILESIZE), image, self.all_sprites)
+            Sprite((x * TILESIZE, y * TILESIZE), image, {'groundType': 'ground2'}, self.all_sprites)
 
         for x, y, image in self.map.get_layer_by_name("shadow").tiles():
-            Sprite((x * TILESIZE, y * TILESIZE), image, self.all_sprites)
+            Sprite((x * TILESIZE, y * TILESIZE), image, {'groundType': 'shadow'}, self.all_sprites)
 
         for x, y, image in self.map.get_layer_by_name("walls1").tiles():
-            Sprite((x * TILESIZE, y * TILESIZE), image, self.all_sprites)
+            Sprite((x * TILESIZE, y * TILESIZE), image, {'groundType': 'wall'}, self.all_sprites)
 
         for x, y, image in self.map.get_layer_by_name("walls1.5").tiles():
-            Sprite((x * TILESIZE, y * TILESIZE), image, self.all_sprites)
+            Sprite((x * TILESIZE, y * TILESIZE), image, {'groundType': 'wall'}, self.all_sprites)
 
         for x, y, image in self.map.get_layer_by_name("walls2").tiles():
-            Sprite((x * TILESIZE, y * TILESIZE), image, self.all_sprites)
+            Sprite((x * TILESIZE, y * TILESIZE), image, {'groundType': 'wall'}, self.all_sprites)
 
         # load the collision boxes 
         for obj in self.map.get_layer_by_name('collisionBoxes'):
@@ -79,7 +79,7 @@ class Game:
             
             MaterialSprite((x, y), obj.image, (self.all_sprites, self.ore_sprites), ore_type)
     def draw(self):  
-        self.game_surface.fill((50, 50, 50))
+        self.game_surface.fill((153, 145, 126))
         self.all_sprites.draw(self.game_surface, self.user.rect.center)
         #self.user.draw(self.game_surface)
         # self.ground_sprites

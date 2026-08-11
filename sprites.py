@@ -2,11 +2,14 @@ import pygame
 from globals import *
 
 class Sprite(pygame.sprite.Sprite):
-    def __init__(self, pos, surf, groups):
+    def __init__(self, pos, surf, extraInfo: dict, groups):
         super().__init__(groups)
         self.image = surf
         self.rect = self.image.get_rect(topleft = pos)
         self.ground = True
+
+        if extraInfo['groundType']:
+            self.groundType = extraInfo['groundType']
         
 
 class CollisionSprite(pygame.sprite.Sprite):
