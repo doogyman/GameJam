@@ -35,11 +35,12 @@ class User(Entity):
         self.battery_hp = 5 #secs
         self.health_bar = HealthBar(6, groups)
         self.battery_cells = []
-        self.battery_capacity = len(self.battery_cells)
+        
         for i in range(6):
             self.cell = Cell(i, 6, groups)
             self.cell.set_pos(i)
             self.battery_cells.append(self.cell)
+        self.battery_capacity = len(self.battery_cells)
         print("cells:", self.battery_cells)
         
         self.idle_front = [get_sprite(self.sheet, 1, 16, 32, 0, 0, 0, 1)]
@@ -174,26 +175,31 @@ class User(Entity):
             self.ore_indicator.hide()
             
     def update_cells(self, dt):
-        print(f"speed: {self.speed}")
- 
-        if self.is_moving and self.battery_hp > 0:
+        print(f"capacity: {self.battery_capacity}")
+        if self.is_moving and self.battery_hp > 0 and self.battery_capacity >= 0:
             self.battery_hp -= dt
             print(f"battery_health: {self.battery_hp}")
         if self.battery_hp < 2 and self.battery_hp>0:
             print("animation")
             self.cell.animate(dt)
+        
+        elif self.battery_capacity == 0:
+            return None
                 
-        elif self.battery_hp <= 0:
+        elif self.battery_hp <= 0 and self.battery_capacity >= 0:
             print("deleting")
             self.cell.hide()
             self.battery_cells.pop()
             self.battery_hp = 5
             index = len(self.battery_cells) - 1
-            self.cell = self.battery_cells[index]
+            if index >= 0:
+                self.cell = self.battery_cells[index]
+                self.battery_capacity = len(self.battery_cells) -1
+            else:
+                return None
             index-=1
             
-        elif self.battery_capacity == 0:
-            return None
+        
             
     def update(self, dt):
         self.input()

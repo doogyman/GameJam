@@ -71,7 +71,7 @@ class AllSprites(pygame.sprite.Group):
             surface.blit(sprite.image, coords)
             
         for sprite in self.battery:
-            surface.blit(sprite.image, sprite.rect.topleft)
+            surface.blit(sprite.image, sprite.rect.topleft, area=None, special_flags=pygame.BLEND_ALPHA_SDL2)
         #surface.blit(loadedMessageBoxList[self.messageIndex], coords)
     
     def drawHitbox(self, surface, target_pos):
