@@ -44,33 +44,3 @@ class MaterialSprite(pygame.sprite.Sprite):
         print('drawMessage FUNC called')
         print('targetSurface : ', targetSurface)
         print('loadedMessageBox : ', loadedMessageBox)
-
-        
-
-
-    def collidedWithPlayer(self, targetSurface, loadedMessageBoxList, playerRect):
-        self.oreCounter += 1
-
-        # coords = ()
-
-        if self.oreCounter >= 2: # arbitrary value deciding how often message box animation changes
-            self.oreCounter = 0
-            self.messageIndex += 1
-
-            if self.messageIndex >= 10:
-                self.messageIndex = 0
-
-
-        target_pos = playerRect
-        offset = pygame.Vector2()
-
-        offset.x = -(target_pos[0] - BASEWIDTH / 2)
-        offset.y = -(target_pos[1] - BASEHEIGHT / 2)
-        
-        otherOffset = pygame.Vector2()
-        otherOffset.x = -50
-        otherOffset.y = -50
-
-        coords = (self.rect.x + offset.x + otherOffset.x, self.rect.y + offset.y + otherOffset.y)
-
-        targetSurface.blit(loadedMessageBoxList[self.messageIndex], coords)

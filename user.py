@@ -194,7 +194,7 @@ class User(Entity):
             index = len(self.battery_cells) - 1
             if index >= 0:
                 self.cell = self.battery_cells[index]
-                self.battery_capacity = len(self.battery_cells) -1
+                self.battery_capacity = len(self.battery_cells)
             else:
                 return None
             index-=1
