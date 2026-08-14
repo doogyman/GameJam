@@ -9,6 +9,8 @@ class AllSprites(pygame.sprite.Group):
         self.object_sprites = pygame.sprite.Group()
         self.indicator_sprites = pygame.sprite.Group()
         self.battery = pygame.sprite.Group()
+        self.ambience = pygame.sprite.Group()
+        self.effects = pygame.sprite.Group()
         
     def catagorise(self):
         # print('beginning of categorise, len(self.indicator_sprites) : ', len(self.indicator_sprites))
@@ -21,6 +23,10 @@ class AllSprites(pygame.sprite.Group):
                 self.indicator_sprites.add(sprite)
             elif hasattr(sprite, 'is_health_bar'):
                 self.battery.add(sprite)
+            elif hasattr(sprite, 'is_ambience'):
+                self.ambience.add(sprite)
+            elif hasattr(sprite, 'is_effect'):
+                self.effects.add(sprite)
             else:
                 self.object_sprites.add(sprite)
 
@@ -70,8 +76,14 @@ class AllSprites(pygame.sprite.Group):
             # print("loading")
             surface.blit(sprite.image, coords)
             
+        for sprite in self.ambience:
+            surface.blit(sprite.image, sprite.rect.topleft +self.offset)
+            
         for sprite in self.battery:
-            surface.blit(sprite.image, sprite.rect.topleft, area=None, special_flags=pygame.BLEND_ALPHA_SDL2)
+            surface.blit(sprite.image, sprite.rect.topleft, area=None)
+            
+        for sprite in self.effects:
+            surface.blit(sprite.image, sprite.rect.center + self.offset, area=None, special_flags=pygame.BLEND_RGBA_MULT)
         #surface.blit(loadedMessageBoxList[self.messageIndex], coords)
     
     def drawHitbox(self, surface, target_pos):

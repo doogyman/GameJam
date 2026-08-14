@@ -5,7 +5,7 @@ from mouse import Mouse
 from spritesheet import get_sprite
 from UI.ore_indicator import OreIndicator
 from UI.health_bar import *
-
+from UI.effects.spotlight import SpotLight
 
 class User(Entity):
 
@@ -71,6 +71,8 @@ class User(Entity):
         self.diagonal_speed = math.sqrt(self.speed ** 2 / 2)
         self.collision_sprites = collision_sprites
         self.ore_sprites = ore_sprites
+        
+        self.spotlight = SpotLight(self.pos.x, self.pos.y, 4, self.groups()[0])
 
     def input(self):
             keys = pygame.key.get_pressed()
