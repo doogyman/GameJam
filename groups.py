@@ -65,7 +65,7 @@ class AllSprites(pygame.sprite.Group):
         #     surface.blit(sprite.image, sprite.rect.topleft + self.offset)
 
         # for sprite in sorted(self.object_sprites, key=lambda sprite: sprite.rect.centery):
-        #     surface.blit(sprite.image, sprite.rect.topleft + self.offset)
+        #     surface.blit(sprite.image, sprite.rect.topleåft + self.offset)
         
         #blitting indicator sprites
         otherOffset = pygame.Vector2()
@@ -77,13 +77,15 @@ class AllSprites(pygame.sprite.Group):
             surface.blit(sprite.image, coords)
             
         for sprite in self.ambience:
-            surface.blit(sprite.image, sprite.rect.topleft +self.offset)
+            surface.blit(sprite.image, sprite.rect.topleft + self.offset, area=None, special_flags=pygame.BLEND_RGBA_MULT)
             
         for sprite in self.battery:
             surface.blit(sprite.image, sprite.rect.topleft, area=None)
             
+        
+        
         for sprite in self.effects:
-            surface.blit(sprite.image, sprite.rect.center + self.offset, area=None, special_flags=pygame.BLEND_RGBA_MULT)
+            surface.blit(sprite.image, sprite.rect.center + self.offset)
         #surface.blit(loadedMessageBoxList[self.messageIndex], coords)
     
     def drawHitbox(self, surface, target_pos):

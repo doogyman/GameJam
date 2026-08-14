@@ -3,6 +3,7 @@ import pygame
 from sprites import *
 from groups import AllSprites 
 from user import User
+from UI.effects.spotlight import Ambience
 # from mouse import Mouse
 from pytmx import load_pygame
 from globals import *
@@ -27,6 +28,7 @@ class Game:
         
         # debugging
         self.isDebugging = False
+        
         
         
         self.setup()
@@ -78,6 +80,8 @@ class Game:
             ore_type = obj.name
             
             MaterialSprite((x, y), obj.image, (self.all_sprites, self.ore_sprites), ore_type)
+            
+        Ambience(SCREENWIDTH, SCREENHEIGHT, self.all_sprites)
     def draw(self):
         actualWidth, actualHeight = pygame.display.get_surface().get_size()
         print('actualWidth, actualHeight : ', actualWidth, actualHeight)

@@ -14,8 +14,8 @@ class SpotLight(pygame.sprite.Sprite):
         
         self.image = pygame.Surface((w, h), pygame.SRCALPHA)
         
-        self.rect = self.image.get_frect(topleft=self.pos)
-        pygame.draw.circle(self.image, (0, 0, 0, 255), (self.pos.x, self.pos.y), self.radius)
+        self.rect = self.image.get_frect(center=self.pos)
+        pygame.draw.circle(self.image, (255, 255, 255, 0), (self.radius, self.radius), self.radius)
             
         
     
