@@ -45,7 +45,7 @@ class AllSprites(pygame.sprite.Group):
 
         # blit ground sprites which aren't walls
         for sprite in self.ground_sprites:
-            if sprite.groundType != 'wall':
+            if sprite.groundType != 'wall' and not hasattr(sprite, 'is_effect'):
                 surface.blit(sprite.image, sprite.rect.topleft + self.offset)
             # print('sprite.groundType !! : ', sprite.groundType)
 
@@ -55,6 +55,10 @@ class AllSprites(pygame.sprite.Group):
             if hasattr(sprite, 'ground') and sprite.groundType != 'wall':
                 continue
             elif hasattr(sprite, 'is_indicator'):
+                continue
+            elif hasattr(sprite, 'is_ambience'):
+                continue
+            elif hasattr(sprite, 'is_effect'):
                 continue
             else:
                 # print(counter, ' ', sprite.rect.centery)
@@ -75,19 +79,13 @@ class AllSprites(pygame.sprite.Group):
             coords = (sprite.rect.x + self.offset.x + otherOffset.x, sprite.rect.y + self.offset.y + otherOffset.y)
             # print("loading")
             surface.blit(sprite.image, coords)
-            
+
         for sprite in self.ambience:
-            surface.blit(sprite.image, sprite.rect.topleft + self.offset, area=None, special_flags=pygame.BLEND_RGBA_MULT)
+            surface.blit(sprite.image, sprite.rect.topleft +self.offset)
             
         for sprite in self.battery:
-            surface.blit(sprite.image, sprite.rect.topleft, area=None)
+            surface.blit(sprite.image, sprite.rect.topleft)
             
-        
-        
-        for sprite in self.effects:
-            surface.blit(sprite.image, sprite.rect.center + self.offset)
-        #surface.blit(loadedMessageBoxList[self.messageIndex], coords)
-    
     def drawHitbox(self, surface, target_pos):
         self.offset.x = -(target_pos[0] - BASEWIDTH / 2)
         self.offset.y = -(target_pos[1] - BASEHEIGHT / 2)

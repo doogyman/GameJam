@@ -5,7 +5,7 @@ from mouse import Mouse
 from spritesheet import get_sprite
 from UI.ore_indicator import OreIndicator
 from UI.health_bar import *
-from UI.effects.spotlight import SpotLight
+from UI.effects.spotlight import SpotLight, Ambience
 
 class User(Entity):
 
@@ -72,8 +72,12 @@ class User(Entity):
         self.collision_sprites = collision_sprites
         self.ore_sprites = ore_sprites
         
-        self.spotlight = SpotLight(self.pos.x, self.pos.y, 4, self.groups()[0])
-
+        self.radius = 25
+    
+        self.ambience = Ambience(self.radius, self.groups()[0])
+        
+        self.ambience.cut_hole(self.rect.center)
+        
     def input(self):
             keys = pygame.key.get_pressed()
             self.direction.x = int(keys[pygame.K_d]) - int(keys[pygame.K_a])
@@ -113,12 +117,13 @@ class User(Entity):
             self.collision('v')  # vertical
 
         self.rect.center = self.hitbox_rect.center
-    
+        
         if (self.pos - prev_pos).length() / dt == 0:
             print("actual speeed:", (self.pos - prev_pos).length() / dt )
             self.is_moving = False
         else:
             self.is_moving = True # this is to check whether the user is moving or not
+            
     def animate(self, dt):
         if self.direction.x > 0:
             self.status = "right"; sprites = self.walk_right
@@ -206,6 +211,7 @@ class User(Entity):
     def update(self, dt):
         self.input()
         self.move(dt)
+        self.ambience.update_cut_hole(self.rect, dt)
         self.animate(dt)
         self.update_cells(dt)
         self.update_indicator(dt)

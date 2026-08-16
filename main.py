@@ -80,8 +80,6 @@ class Game:
             ore_type = obj.name
             
             MaterialSprite((x, y), obj.image, (self.all_sprites, self.ore_sprites), ore_type)
-            
-        Ambience(SCREENWIDTH, SCREENHEIGHT, self.all_sprites)
     def draw(self):
         actualWidth, actualHeight = pygame.display.get_surface().get_size()
         print('actualWidth, actualHeight : ', actualWidth, actualHeight)
@@ -99,8 +97,6 @@ class Game:
         
         if self.isDebugging:
             self.debug()
-
-        
 
         self.scaled_surface = pygame.Surface((actualWidth, actualHeight))
         pygame.transform.scale(self.game_surface, (actualWidth, actualHeight), self.scaled_surface)
