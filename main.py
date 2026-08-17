@@ -81,10 +81,14 @@ class Game:
             
             MaterialSprite((x, y), obj.image, (self.all_sprites, self.ore_sprites), ore_type)
     def draw(self):
+        # weird stuff to account for screen resizing and make it so that tile resolution stays the same
         actualWidth, actualHeight = pygame.display.get_surface().get_size()
-        print('actualWidth, actualHeight : ', actualWidth, actualHeight)
-        wMultiplier = actualWidth / SCREENWIDTH
-        hMultiplier = actualHeight / SCREENHEIGHT
+
+        Globals.SCREENWIDTH = Globals.BASEWIDTH * Globals.SCALE #redo this cause SCALE could be changing if they've been scrolling in
+        Globals.SCREENHEIGHT = Globals.BASEHEIGHT * Globals.SCALE #redo this cause SCALE could be changing if they've been scrolling in
+
+        wMultiplier = actualWidth / Globals.SCREENWIDTH
+        hMultiplier = actualHeight / Globals.SCREENHEIGHT
         width = BASEWIDTH * wMultiplier
         height = BASEHEIGHT * hMultiplier
 
@@ -135,6 +139,14 @@ class Game:
                     elif event.key == pygame.K_F12:
                         print("running")
                         self.isDebugging = not self.isDebugging
+                    elif event.key == pygame.K_o:
+                        print('Globals.SCALE : ', Globals.SCALE)
+                elif event.type == pygame.MOUSEWHEEL:
+                    # print("event.x : ", event.x)
+                    # print("event.y : ", event.y)
+
+                    Globals.SCALE += (event.y * 0.05)
+                    if Globals.SCALE <= 0: Globals.SCALE = 0.01
             
             
             self.draw()
