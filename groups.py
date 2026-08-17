@@ -36,12 +36,12 @@ class AllSprites(pygame.sprite.Group):
     def draw(self, surface, target_pos):
         width = surface.width
         height = surface.height
-        
+
         self.offset.x = -(target_pos[0] - width / 2)
         self.offset.y = -(target_pos[1] - height / 2)
         
         self.catagorise()
-        print('len(self.indicator_sprites) : ', len(self.indicator_sprites ))
+        # print('len(self.indicator_sprites) : ', len(self.indicator_sprites ))
 
         # blit ground sprites which aren't walls
         for sprite in self.ground_sprites:

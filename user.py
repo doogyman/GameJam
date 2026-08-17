@@ -119,7 +119,7 @@ class User(Entity):
         self.rect.center = self.hitbox_rect.center
         
         if (self.pos - prev_pos).length() / dt == 0:
-            print("actual speeed:", (self.pos - prev_pos).length() / dt )
+            # print("actual speeed:", (self.pos - prev_pos).length() / dt )
             self.is_moving = False
         else:
             self.is_moving = True # this is to check whether the user is moving or not
@@ -182,12 +182,12 @@ class User(Entity):
             self.ore_indicator.hide()
             
     def update_cells(self, dt):
-        print(f"capacity: {self.battery_capacity}")
+        # print(f"capacity: {self.battery_capacity}")
         if self.is_moving and self.battery_hp > 0 and self.battery_capacity >= 0:
             self.battery_hp -= dt
-            print(f"battery_health: {self.battery_hp}")
+            # print(f"battery_health: {self.battery_hp}")
         if self.battery_hp < 2 and self.battery_hp>0:
-            print("animation")
+            # print("animation")
             self.cell.animate(dt)
         
         elif self.battery_capacity == 0:
