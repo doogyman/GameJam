@@ -81,7 +81,7 @@ class AllSprites(pygame.sprite.Group):
             surface.blit(sprite.image, coords)
 
         for sprite in self.ambience:
-            surface.blit(sprite.image, sprite.rect.topleft +self.offset)
+            surface.blit(sprite.image, sprite.rect.topleft + self.offset)
             
         for sprite in self.battery:
             surface.blit(sprite.image, sprite.rect.topleft)
