@@ -74,9 +74,9 @@ class User(Entity):
         
         self.radius = 25
     
-        self.ambience = Ambience(self.radius, self.groups()[0])
+        #self.ambience = Ambience(self.radius, self.groups()[0])
         
-        self.ambience.cut_hole(self.rect.center)
+        #self.ambience.cut_hole(self.rect.center)
         
     def input(self):
             keys = pygame.key.get_pressed()
@@ -211,7 +211,7 @@ class User(Entity):
     def update(self, dt):
         self.input()
         self.move(dt)
-        self.ambience.update_cut_hole(self.rect, dt)
+        #self.ambience.update_cut_hole(self.rect, dt)
         self.animate(dt)
         self.update_cells(dt)
         self.update_indicator(dt)
