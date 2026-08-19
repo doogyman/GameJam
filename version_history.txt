@@ -1,0 +1,24 @@
+This is the document about the evolution of the game
+
+Pretext
+
+The theme of this game is underground, more specifically in a cave. You play as a robot who can move around.
+
+
+Before Mon 17 Aug:
+ - Game had 1 level
+ - Player was the only entity
+ - 2 kinds of ores
+ - The ability to pick up ores
+ - y sort, camera zoom and window resizing
+
+
+Mon 17 Aug:
+ - Decided to determine the player's purpose in this game which is to complete as many levels as possible, with the hope that that is fun for the player as well
+ - Each level will be a new map (most likely manually created) and to beat the level you must find gems/ores/other things for the gatekeeper, who will only let you out of the cave if he gets those materials from you.
+ - Sometimes, something you will have to find will be hidden behind a door which needs a secret key. The key will be hidden elsewhere in the cave, and it is your job to find it.
+ - To make finding the key easier, you can talk to NPCs or other entities who can give you clues/riddles to the whereabouts of keys.
+ - As the levels go up, the difficulty of the levels increases as well and this can be done by:
+    a) Reducing the visible part of the screen to a spotlight around the player to limit the players view of their surroundings. The spotlight radius can be increased by the player throughout the course of the level
+    b) Including more things that the player has to find for the gatekeeper.
+    c) ...
