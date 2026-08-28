@@ -51,6 +51,9 @@ class Game:
 
         for x, y, image in self.map.get_layer_by_name("walls1.5").tiles():
             Sprite((x * TILESIZE, y * TILESIZE), image, {'groundType': 'wall'}, self.all_sprites)
+        
+        for x, y, image in self.map.get_layer_by_name("doors").tiles():
+            Sprite((x * TILESIZE, y * TILESIZE), image, {'groundType': 'door'}, self.all_sprites)
 
         for x, y, image in self.map.get_layer_by_name("walls2").tiles():
             Sprite((x * TILESIZE, y * TILESIZE), image, {'groundType': 'wall'}, self.all_sprites)
@@ -73,13 +76,13 @@ class Game:
             # pygame.Surface((obj.width, obj.height))
 
         # load the ores
-        for obj in self.map.get_layer_by_name('ores'):
+        for obj in self.map.get_layer_by_name('items'):
             print('obj : ', obj)
             x, y = int(obj.x), int(obj.y)
             w, h = int(obj.width), int(obj.height)
-            ore_type = obj.name
+            item_type = obj.name
             
-            MaterialSprite((x, y), obj.image, (self.all_sprites, self.ore_sprites), ore_type)
+            MaterialSprite((x, y), obj.image, (self.all_sprites, self.ore_sprites), item_type)
     def draw(self):
         # weird stuff to account for screen resizing and make it so that tile resolution stays the same
         actualWidth, actualHeight = pygame.display.get_surface().get_size()

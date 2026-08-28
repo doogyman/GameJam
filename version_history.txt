@@ -21,4 +21,4 @@ Mon 17 Aug:
  - As the levels go up, the difficulty of the levels increases as well and this can be done by:
     a) Reducing the visible part of the screen to a spotlight around the player to limit the players view of their surroundings. The spotlight radius can be increased by the player throughout the course of the level
     b) Including more things that the player has to find for the gatekeeper.
-    c) ...
+    c) Craftables can be used for getting past obstacles if need ot reach the key/goal.

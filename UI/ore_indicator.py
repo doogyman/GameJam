@@ -2,7 +2,7 @@ import pygame
 import math
 
 from spritesheet import get_sprite
-class OreIndicator(pygame.sprite.Sprite):
+class ItemIndicator(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.is_indicator = False

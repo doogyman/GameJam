@@ -3,7 +3,7 @@ from globals import *
 from entity import Entity
 from mouse import Mouse
 from spritesheet import get_sprite
-from UI.ore_indicator import OreIndicator
+from UI.ore_indicator import ItemIndicator
 from UI.health_bar import *
 from UI.effects.spotlight import SpotLight, Ambience
 
@@ -27,7 +27,7 @@ class User(Entity):
         }
         self.hovered_ore = None
 
-        self.ore_indicator = OreIndicator()
+        self.ore_indicator = ItemIndicator()
 
         self.sheet = pygame.image.load('assets/character-Sheet.png').convert_alpha()
 
@@ -74,7 +74,7 @@ class User(Entity):
         
         self.radius = 25
     
-        #self.ambience = Ambience(self.radius, self.groups()[0])
+       # self.ambience = Ambience(self.radius, self.groups()[0])
         
         #self.ambience.cut_hole(self.rect.center)
         
