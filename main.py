@@ -7,7 +7,7 @@ from UI.effects.spotlight import Ambience
 # from mouse import Mouse
 from pytmx import load_pygame
 from globals import *
-from button import Button
+from buttons import *
 
 
 pygame.init()
@@ -32,7 +32,16 @@ class Game:
 
         # for the main menu
         self.inMainMenu = True
-        self.playButton = Button('play', (80, 80))
+        self.playButton = Text_Button('play', (80, 80))
+
+        # for the pause menu
+        self.isPaused = False # if in the main menu, ignore the value of this anyway
+        self.pauseButton = Picture_Button('assets/pause.png', (SCREENWIDTH - 10, SCREENHEIGHT - 10), (1/4))
+
+        self.fontSize = 30
+        self.font = pygame.font.SysFont('Comic Sans MS', self.fontSize)
+
+
         
         
         
@@ -89,6 +98,20 @@ class Game:
             
             MaterialSprite((x, y), obj.image, (self.all_sprites, self.ore_sprites), item_type)
 
+    def update(self, dt):
+        # print('update FUNC called')
+        self.user.update(dt)
+
+        real_mouse_pos = pygame.mouse.get_pos()
+
+
+        # print('self.pauseButton.button : ', self.pauseButton.button)
+        # print('real_mouse_pos : ', real_mouse_pos)
+        if self.pauseButton.button.collidepoint(real_mouse_pos) and pygame.mouse.get_pressed()[0]:
+            # print('trying to pause the game')
+            self.isPaused = True
+
+
     def draw(self, actualWidth, actualHeight):
 
         self.game_surface.fill((153, 145, 126))
@@ -101,8 +124,22 @@ class Game:
         if self.isDebugging:
             self.debug()
 
+
         self.scaled_surface = pygame.Surface((actualWidth, actualHeight))
         pygame.transform.scale(self.game_surface, (actualWidth, actualHeight), self.scaled_surface)
+
+        # update the position of incase of screen resizing and draw the pause button
+        newPauseButtonPos = pygame.display.get_surface().get_size()
+        # print('newPauseButtonPos : ', newPauseButtonPos)
+        # print(int(newPauseButtonPos[0] - 10), int(newPauseButtonPos[1] - 10))
+        # self.pauseButton.button[0] = (int(newPauseButtonPos[0] - 10), int(newPauseButtonPos[1] - 10))
+        # print(self.pauseButton.button)
+        # print(self.pauseButton.button.x)
+
+        self.pauseButton.button.x = (newPauseButtonPos[0] - 10 - 50) # 50 being the assumed width of the button at (1/4) its original size
+        self.pauseButton.button.y = 10
+        self.pauseButton.draw(self.scaled_surface)
+
         self.screen.blit(self.scaled_surface, (0, 0))
 
     def redoScreenSizings(self):
@@ -143,15 +180,52 @@ class Game:
         # print('updateMainMenu FUNC called')
         real_mouse_pos = pygame.mouse.get_pos()
 
-        logic_mouse_pos = [None, None]
-        logic_mouse_pos[0] = real_mouse_pos[0] / Globals.SCALE
-        logic_mouse_pos[1] = real_mouse_pos[1] / Globals.SCALE
+        logic_mouse_pos = [real_mouse_pos[0] / Globals.SCALE, real_mouse_pos[1] / Globals.SCALE]
 
         
         # this is a function that updates the main menu
         if self.playButton.button.collidepoint((logic_mouse_pos[0], logic_mouse_pos[1])) and pygame.mouse.get_pressed()[0]: # if the mouse button is on the button and the left mouse button is down (True) then
             self.inMainMenu = False
 
+    def drawPauseMenu(self, actualWidth, actualHeight):
+        # print('drawPauseMenu FUNC called')
+        color = (179, 179, 179)
+
+        width = (4/5) * actualWidth
+        height = (4/5) * actualHeight
+        x = (actualWidth - width) / 2
+        y = (actualHeight - height) / 2
+
+        rect = pygame.rect.Rect(x, y, width, height)
+
+        unpauseButton = Text_Button('Unpause', ((x + (width / 2) - 90), (y + height - 50))) # 50 being some arbritary amount of pixels to lift it off the very bottom of the pause box by
+
+        self.scaled_surface = pygame.Surface((actualWidth, actualHeight))
+        pygame.transform.scale(self.game_surface, (actualWidth, actualHeight), self.scaled_surface)
+
+        # (load and )blit things here because its not part of the game is on a layer on top
+        text = self.font.render('Game Paused', True, (255, 255, 255))
+
+        pygame.draw.rect(self.scaled_surface, color, rect)
+        self.scaled_surface.blit(text, ((x + (width / 2) - 90), (y + 10)) ) # 45 being estimated half of width of text 'Game Paused'
+        unpauseButton.draw(self.scaled_surface)
+
+
+        self.screen.blit(self.scaled_surface, (0, 0))
+
+        return unpauseButton
+
+    def updatePauseMenu(self, unpauseButton):
+        # print('updatePauseMenu FUNC called')
+
+        # print('updateMainMenu FUNC called')
+        real_mouse_pos = pygame.mouse.get_pos()
+        
+        
+        
+        # this is a function that updates the main menu
+        if unpauseButton.button.collidepoint(real_mouse_pos) and pygame.mouse.get_pressed()[0]: # if the mouse button is on the button and the left mouse button is down (True) then
+            self.isPaused = False
     
     def debug(self):
         # print('debugging')
@@ -183,7 +257,6 @@ class Game:
                     if event.key == pygame.K_ESCAPE:
                         self.running = False
                     elif event.key == pygame.K_F12:
-                        print("running")
                         self.isDebugging = not self.isDebugging
                     elif event.key == pygame.K_o:
                         print('Globals.SCALE : ', Globals.SCALE)
@@ -197,12 +270,18 @@ class Game:
 
             actualWidth, actualHeight = self.redoScreenSizings()
 
-            if not self.inMainMenu:
-                self.user.update(self.dt)
-                self.draw(actualWidth, actualHeight)
-            elif self.inMainMenu:
+            if  self.inMainMenu:
                 self.updateMainMenu()
                 self.drawMainMenu(actualWidth, actualHeight)
+            elif not self.inMainMenu:
+                if not self.isPaused:
+                    self.update(self.dt)
+                    self.draw(actualWidth, actualHeight)
+                elif self.isPaused:
+                    self.draw(actualWidth, actualHeight)
+                    unpauseButton = self.drawPauseMenu(actualWidth, actualHeight)
+                    self.updatePauseMenu(unpauseButton)
+
 
             pygame.display.flip()
 

@@ -22,3 +22,6 @@ Mon 17 Aug:
     a) Reducing the visible part of the screen to a spotlight around the player to limit the players view of their surroundings. The spotlight radius can be increased by the player throughout the course of the level
     b) Including more things that the player has to find for the gatekeeper.
     c) Craftables can be used for getting past obstacles if need ot reach the key/goal.
+
+    Sun 30th Aug:
+     - introduced a main menu screen with a play button to launch the game

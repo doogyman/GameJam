@@ -2,7 +2,7 @@ import pygame
 
 pygame.font.init() # you have to call this at the start if you want to use this model
 
-class Button:
+class Text_Button:
     def __init__(self, text, position):
         self.text = text
         self.position = position
@@ -28,3 +28,16 @@ class Button:
             return True
         else:
             return False
+
+class Picture_Button:
+    def __init__(self, imagePath, initialPosition, desiredScale):
+        # self.initialPosition = initialPosition
+        self.imagePath = imagePath
+        self.unscaledImage = pygame.image.load(self.imagePath).convert_alpha() # .convert_alpha() removes clear bits from the image i think
+        self.image = pygame.Surface((int(self.unscaledImage.get_width() * desiredScale), int(self.unscaledImage.get_height() * desiredScale)))
+        pygame.transform.scale_by(self.unscaledImage, desiredScale, self.image)
+
+        self.button = pygame.rect.Rect((initialPosition[0], initialPosition[1]), (self.image.get_width(), self.image.get_height()))
+
+    def draw(self, game_surface):
+        game_surface.blit(self.image, (self.button.x, self.button.y))
