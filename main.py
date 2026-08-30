@@ -7,6 +7,7 @@ from UI.effects.spotlight import Ambience
 # from mouse import Mouse
 from pytmx import load_pygame
 from globals import *
+from button import Button
 
 
 pygame.init()
@@ -28,6 +29,10 @@ class Game:
         
         # debugging
         self.isDebugging = False
+
+        # for the main menu
+        self.inMainMenu = True
+        self.playButton = Button('play', (80, 80))
         
         
         
@@ -83,22 +88,13 @@ class Game:
             item_type = obj.name
             
             MaterialSprite((x, y), obj.image, (self.all_sprites, self.ore_sprites), item_type)
-    def draw(self):
-        # weird stuff to account for screen resizing and make it so that tile resolution stays the same
-        actualWidth, actualHeight = pygame.display.get_surface().get_size()
 
-        Globals.SCREENWIDTH = Globals.BASEWIDTH * Globals.SCALE #redo this cause SCALE could be changing if they've been scrolling in
-        Globals.SCREENHEIGHT = Globals.BASEHEIGHT * Globals.SCALE #redo this cause SCALE could be changing if they've been scrolling in
-
-        wMultiplier = actualWidth / Globals.SCREENWIDTH
-        hMultiplier = actualHeight / Globals.SCREENHEIGHT
-        width = BASEWIDTH * wMultiplier
-        height = BASEHEIGHT * hMultiplier
-
-        self.game_surface = pygame.Surface((width, height))
+    def draw(self, actualWidth, actualHeight):
 
         self.game_surface.fill((153, 145, 126))
-        self.all_sprites.draw(self.game_surface, self.user.rect.center)
+
+        if not self.inMainMenu: # if drawing game
+            self.all_sprites.draw(self.game_surface, self.user.rect.center)
         #self.user.draw(self.game_surface)
         # self.ground_sprites
         
@@ -108,7 +104,54 @@ class Game:
         self.scaled_surface = pygame.Surface((actualWidth, actualHeight))
         pygame.transform.scale(self.game_surface, (actualWidth, actualHeight), self.scaled_surface)
         self.screen.blit(self.scaled_surface, (0, 0))
-        pygame.display.flip()
+
+    def redoScreenSizings(self):
+        # weird stuff to account for screen resizing and make it so that tile resolution stays the same
+        actualWidth, actualHeight = pygame.display.get_surface().get_size()
+        
+        Globals.SCREENWIDTH = Globals.BASEWIDTH * Globals.SCALE #redo this cause SCALE could be changing if they've been scrolling in
+        Globals.SCREENHEIGHT = Globals.BASEHEIGHT * Globals.SCALE #redo this cause SCALE could be changing if they've been scrolling in
+        
+        wMultiplier = actualWidth / Globals.SCREENWIDTH
+        hMultiplier = actualHeight / Globals.SCREENHEIGHT
+        width = BASEWIDTH * wMultiplier
+        height = BASEHEIGHT * hMultiplier
+        
+        self.game_surface = pygame.Surface((width, height))
+
+        return actualWidth, actualHeight
+
+    def drawMainMenu(self, actualWidth, actualHeight):
+        # print('drawMainMenu FUNC called')
+
+        self.game_surface.fill((243, 243, 243))
+        # button = pygame.rect.Rect((100, 100), (260, 40))
+        # pygame.draw.rect(self.game_surface, 'dark gray', button, 5, 5)
+
+        # print(self.playButton)
+
+        self.playButton.draw(self.game_surface)
+
+
+        # transfers stuff from game surface to screen surface to account for window resizing, then blits that onto the screen. crucial
+        self.scaled_surface = pygame.Surface((actualWidth, actualHeight))
+        pygame.transform.scale(self.game_surface, (actualWidth, actualHeight), self.scaled_surface)
+        self.screen.blit(self.scaled_surface, (0, 0))
+
+        
+    def updateMainMenu(self):
+        # print('updateMainMenu FUNC called')
+        real_mouse_pos = pygame.mouse.get_pos()
+
+        logic_mouse_pos = [None, None]
+        logic_mouse_pos[0] = real_mouse_pos[0] / Globals.SCALE
+        logic_mouse_pos[1] = real_mouse_pos[1] / Globals.SCALE
+
+        
+        # this is a function that updates the main menu
+        if self.playButton.button.collidepoint((logic_mouse_pos[0], logic_mouse_pos[1])) and pygame.mouse.get_pressed()[0]: # if the mouse button is on the button and the left mouse button is down (True) then
+            self.inMainMenu = False
+
     
     def debug(self):
         # print('debugging')
@@ -147,14 +190,21 @@ class Game:
                 elif event.type == pygame.MOUSEWHEEL:
                     # print("event.x : ", event.x)
                     # print("event.y : ", event.y)
+                    if not self.inMainMenu:
+                        Globals.SCALE += (event.y * 0.05)
+                        if Globals.SCALE <= 0: Globals.SCALE = 0.01
 
-                    Globals.SCALE += (event.y * 0.05)
-                    if Globals.SCALE <= 0: Globals.SCALE = 0.01
-            
-            
-            self.draw()
 
-            self.user.update(self.dt)
+            actualWidth, actualHeight = self.redoScreenSizings()
+
+            if not self.inMainMenu:
+                self.user.update(self.dt)
+                self.draw(actualWidth, actualHeight)
+            elif self.inMainMenu:
+                self.updateMainMenu()
+                self.drawMainMenu(actualWidth, actualHeight)
+
+            pygame.display.flip()
 
 
             await asyncio.sleep(0)
