@@ -3,12 +3,14 @@ from spritesheet import clip
 class Font:
     def __init__(self, sheet, *groups):
         super().__init__(groups)
+        self.is_text = True
         self.charater_order = list('abcdefghijklmopqrstuwvxyz') + list('0123456789')
         self.spacing = 1
         self.font_sheet = pygame.image.load(sheet).convert_alpha()
         current_character_width = 0
         self.characters = {}
         counter = 0
+        # This basically add all the characters in a dictionary of surfaces, as one surface is assigned to a character.
         for x_coord in range(self.font_sheet.get_width()):
             color = self.font_sheet.get_at(x_coord, 0)
             if color[0] == 105:
@@ -18,6 +20,21 @@ class Font:
                 current_character_width = 0
             else:
                 current_character_width += 1
+                
     
-    def draw(self, surf, text, loc):
-        pass
+    def render(self,  text, loc):
+        w = 0
+        for ch in text:
+            width_of_character = self.characters[ch].get_width()
+            w = w + width_of_character + self.spacing
+        h = self.font_sheet.get_height()
+        
+        character_surf = pygame.Rect(loc[0], loc[1], w, h)
+        
+        x_offset = 0
+        for ch in text:
+            char_img = self.characters[ch]
+            character_surf.blit(char_img, (loc[0] + x_offset, loc[1]))
+            x_offset += char_img.get_width() + self.spacing
+        
+        return character_surf

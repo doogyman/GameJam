@@ -6,6 +6,7 @@ from spritesheet import get_sprite
 from UI.ore_indicator import ItemIndicator
 from UI.health_bar import *
 from UI.effects.spotlight import SpotLight, Ambience
+from UI.font import Font
 
 class User(Entity):
 
@@ -28,7 +29,7 @@ class User(Entity):
         self.hovered_ore = None
 
         self.ore_indicator = ItemIndicator()
-
+        self.font = Font('assets/font_sheet.png')
         self.sheet = pygame.image.load('assets/character-Sheet.png').convert_alpha()
 
         #battery
@@ -176,7 +177,7 @@ class User(Entity):
         if self.hovered_ore:
             # print(self.hovered_ore.ore_type)
             self.ore_indicator.indicator_type(self.hovered_ore.ore_type)
-            self.ore_indicator.animate(self.hovered_ore.rect, dt)
+            self.font.render(self.hovered_ore.ore_type)
             self.ore_indicator.show(self.groups()[0])
         else:
             self.ore_indicator.hide()

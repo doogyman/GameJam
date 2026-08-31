@@ -8,7 +8,7 @@ from UI.effects.spotlight import Ambience
 from pytmx import load_pygame
 from globals import *
 from buttons import *
-
+from UI.font import Font
 
 pygame.init()
 
@@ -43,8 +43,8 @@ class Game:
 
         self.fontSize = 30
         self.font = pygame.font.SysFont('Comic Sans MS', self.fontSize)
-
-
+        
+        self.font = Font('assets/font_sheet.png')
         
         
         
