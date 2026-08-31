@@ -1,6 +1,6 @@
 import pygame 
 import math
-
+from font import Font
 from spritesheet import get_sprite
 class ItemIndicator(pygame.sprite.Sprite):
     def __init__(self):
@@ -24,9 +24,9 @@ class ItemIndicator(pygame.sprite.Sprite):
         
     def indicator_type(self, ore_type):
         if ore_type == 'aluminium': #this check what kind of material it is 
-            self.sprites = self.titanium_indicator
+            return ore_type
         elif ore_type == 'lithium':
-            self.sprites = self.lithium_indicator
+            return ore_type
             
     def animate(self, target_rect, dt):
         if not self.sprites:
