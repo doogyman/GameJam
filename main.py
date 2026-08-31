@@ -32,7 +32,10 @@ class Game:
 
         # for the main menu
         self.inMainMenu = True
-        self.playButton = Picture_Button('assets/play1.png', (150, 50), 4)
+        self.playButton = Picture_Button('assets/play1.png', (150, 50), 4) # arbritrary starting numbers because gets updated every frame of the main menu anyways
+
+        self.allLevelsButton = Picture_Button('assets/all_levels.png', (150, 100), 4) # arbritrary starting numbers because gets updated every frame of the main menu anyways
+
 
         # for the pause menu
         self.isPaused = False # if in the main menu, ignore the value of this anyway
@@ -163,32 +166,37 @@ class Game:
         pygame.transform.scale(self.game_surface, (actualWidth, actualHeight), self.scaled_surface)
 
         self.playButton.draw(self.scaled_surface)
+        self.allLevelsButton.draw(self.scaled_surface)
 
         self.screen.blit(self.scaled_surface, (0, 0))
 
         
     def updateMainMenu(self):
 
-        playButtonWidth = self.playButton.image.get_width()
+        # define the current screen height and width because they are used to reposition both the update button and all levels button and also it's better to have one copy of the window sizes incase the window gets resized in the middle of this func
+        currentScreenHeight = pygame.display.get_surface().get_height()
         currentScreenWidth = pygame.display.get_surface().get_width()
 
-        # print('playButtonWidth : ', playButtonWidth)
-        # print('currentScreenWidth : ', currentScreenWidth)
-
+        # update play button
+        playButtonWidth = self.playButton.image.get_width()
         playButtonHeight = self.playButton.image.get_height()
-        currentScreenHeight = pygame.display.get_surface().get_height()
 
         self.playButton.button.x = ( currentScreenWidth -  playButtonWidth) / 2
-        self.playButton.button.y = ( currentScreenHeight -  playButtonHeight) / 2
+        self.playButton.button.y = ( currentScreenHeight -  playButtonHeight) * (3 / 10)
 
-        # print('self.playButton.button.x : ', self.playButton.button.x)
-        # print('updateMainMenu FUNC called')
+        # update all levels button
+        allLevelsButtonWidth = self.allLevelsButton.image.get_width()
+        allLevelsHeight = self.allLevelsButton.image.get_height()
+    
+        self.allLevelsButton.button.x = ( currentScreenWidth -  allLevelsButtonWidth) / 2
+        self.allLevelsButton.button.y = ( currentScreenHeight -  allLevelsHeight) * (6 / 10)
+
+
+
+
         real_mouse_pos = pygame.mouse.get_pos()
-        # print('real_mouse_pos[0] : ', real_mouse_pos[0])
-
-        
-        # this is a function that updates the main menu
-        if self.playButton.button.collidepoint(real_mouse_pos) and pygame.mouse.get_pressed()[0]: # if the mouse button is on the button and the left mouse button is down (True) then
+        # checks if the play button has been clicked
+        if self.playButton.button.collidepoint(real_mouse_pos) and pygame.mouse.get_pressed()[0]:
             self.inMainMenu = False
 
     def drawPauseMenu(self, actualWidth, actualHeight):
