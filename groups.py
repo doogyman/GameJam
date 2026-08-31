@@ -41,7 +41,6 @@ class AllSprites(pygame.sprite.Group):
         self.offset.y = -(target_pos[1] - height / 2)
         
         self.catagorise()
-        # print('len(self.indicator_sprites) : ', len(self.indicator_sprites ))
 
         # blit ground sprites which aren't walls
         for sprite in self.ground_sprites:
@@ -64,12 +63,6 @@ class AllSprites(pygame.sprite.Group):
                 # print(counter, ' ', sprite.rect.centery)
                 surface.blit(sprite.image, sprite.rect.topleft + self.offset)
                 counter += 1
-
-        # for sprite in self.ground_sprites:
-        #     surface.blit(sprite.image, sprite.rect.topleft + self.offset)
-
-        # for sprite in sorted(self.object_sprites, key=lambda sprite: sprite.rect.centery):
-        #     surface.blit(sprite.image, sprite.rect.topleåft + self.offset)
         
         #blitting indicator sprites
         otherOffset = pygame.Vector2()

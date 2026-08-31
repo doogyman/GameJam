@@ -1,6 +1,5 @@
 import pygame 
 import math
-from font import Font
 from spritesheet import get_sprite
 class ItemIndicator(pygame.sprite.Sprite):
     def __init__(self):

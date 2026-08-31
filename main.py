@@ -40,11 +40,7 @@ class Game:
 
         self.fontSize = 30
         self.font = pygame.font.SysFont('Comic Sans MS', self.fontSize)
-        
-        self.font = Font('assets/font_sheet.png')
-        
-        
-        
+    
         self.setup()
 
     def setup(self):
@@ -162,10 +158,6 @@ class Game:
         # print('drawMainMenu FUNC called')
 
         self.game_surface.fill((243, 243, 243))
-
-
-
-
         # transfers stuff from game surface to screen surface to account for window resizing, then blits that onto the screen. crucial
         self.scaled_surface = pygame.Surface((actualWidth, actualHeight))
         pygame.transform.scale(self.game_surface, (actualWidth, actualHeight), self.scaled_surface)

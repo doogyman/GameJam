@@ -17,4 +17,4 @@ def clip(surf, x, y, x_size, y_size):
     clip_rect = pygame.Rect(x, y, x_size, y_size)
     handle_surf.set_clip(clip_rect)
     image = surf.subsurface(handle_surf.get_clip())
-    return image.copy
+    return image
