@@ -29,3 +29,4 @@ Sun 30th Aug:
 Mon 31th Aug:
  - swapped out play button for a play button graphic made by Raltao
  - made the menu screen look better by ensuring the center of the play button stayed in the center of the screen, even if the menu screen was resized
+ - created a font function to make text creation more reuseable!!!

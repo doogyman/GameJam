@@ -4,19 +4,17 @@ from spritesheet import get_sprite
 class ItemIndicator(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.is_indicator = False
+        self.is_indicator = True
         self.is_visible = False
         
-        self.material_sheets = [pygame.image.load("assets/aluminium-Sheet.png").convert_alpha(), pygame.image.load("assets/lithium-Sheet.png").convert_alpha()]
+        self.sheet = pygame.image.load('assets/item_indicator-Sheet.png').convert_alpha()
         
-        self.titanium_indicator = [get_sprite(self.material_sheets[0], i, 40, 15, 0, 0, 0, 1) for i in range(10)]
-        
-        self.lithium_indicator = [get_sprite(self.material_sheets[1], i, 30, 15, 0, 0, 0, 1) for i in range(10)]
-        
-        self.sprites = []
+        self.indicator = [get_sprite(self.sheet, i, 8, 8, 0, 0, 0, 1) for i in range(2)]
+
+        self.sprites = self.indicator
         self.initial_indicator = None
         self.frame_index = 0
-        self.animation_speed = 8 
+        self.animation_speed = 2
         
         self.image: pygame.Surface = pygame.Surface((1, 1), pygame.SRCALPHA)
         self.rect = self.image.get_frect(topleft=(0, 0))

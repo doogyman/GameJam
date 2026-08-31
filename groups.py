@@ -11,6 +11,7 @@ class AllSprites(pygame.sprite.Group):
         self.battery = pygame.sprite.Group()
         self.ambience = pygame.sprite.Group()
         self.effects = pygame.sprite.Group()
+        self.text = pygame.sprite.Group()
         
     def catagorise(self):
         # print('beginning of categorise, len(self.indicator_sprites) : ', len(self.indicator_sprites))
@@ -27,6 +28,8 @@ class AllSprites(pygame.sprite.Group):
                 self.ambience.add(sprite)
             elif hasattr(sprite, 'is_effect'):
                 self.effects.add(sprite)
+            elif hasattr(sprite, 'is_text'):
+                self.text.add(sprite)
             else:
                 self.object_sprites.add(sprite)
 
@@ -59,6 +62,8 @@ class AllSprites(pygame.sprite.Group):
                 continue
             elif hasattr(sprite, 'is_effect'):
                 continue
+            elif hasattr(sprite, 'is_text'):
+                continue
             else:
                 # print(counter, ' ', sprite.rect.centery)
                 surface.blit(sprite.image, sprite.rect.topleft + self.offset)
@@ -70,8 +75,11 @@ class AllSprites(pygame.sprite.Group):
         otherOffset.y = -3
         for sprite in self.indicator_sprites:
             coords = (sprite.rect.x + self.offset.x + otherOffset.x, sprite.rect.y + self.offset.y + otherOffset.y)
-            # print("loading")
+            print("loading")
             surface.blit(sprite.image, coords)
+        
+        for sprite in self.indicator_sprites:
+            coords = (sprite.rect.x + self.offset.x + otherOffset.x, sprite.rect.y + self.offset.y + (otherOffset.y * 2))
 
         for sprite in self.ambience:
             surface.blit(sprite.image, sprite.rect.topleft + self.offset)

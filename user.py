@@ -3,7 +3,7 @@ from globals import *
 from entity import Entity
 from mouse import Mouse
 from spritesheet import get_sprite
-from UI.ore_indicator import ItemIndicator
+from UI.item_indicator import ItemIndicator
 from UI.health_bar import *
 from UI.effects.spotlight import SpotLight, Ambience
 from UI.font import Font
@@ -177,8 +177,10 @@ class User(Entity):
         if self.hovered_ore:
             # print(self.hovered_ore.ore_type)
             self.ore_indicator.indicator_type(self.hovered_ore.ore_type)
-            self.font.render(self.hovered_ore.ore_type)
+            self.font.render(self.hovered_ore.ore_type, (10, 10))
             self.ore_indicator.show(self.groups()[0])
+            self.font.show(self.groups()[0])
+            self.ore_indicator.animate(self.hovered_ore.rect, dt)
         else:
             self.ore_indicator.hide()
             

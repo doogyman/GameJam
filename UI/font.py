@@ -1,10 +1,10 @@
 from globals import *
 from spritesheet import clip
-class Font:
+class Font(pygame.sprite.Sprite):
     def __init__(self, sheet):
         self.is_text = True
         self.is_visible = False
-        self.charater_order = list('abcdefghijklmopqrstuwvxyz') + list('0123456789')
+        self.charater_order = list('abcdefghijklmnopqrstuwvxyz') + list('0123456789')
         self.spacing = 1
         self.font_sheet = pygame.image.load(sheet).convert_alpha()
         current_character_width = 0
@@ -29,7 +29,7 @@ class Font:
             w = w + width_of_character + self.spacing
         h = self.font_sheet.get_height()
         
-        character_surf = pygame.Rect(loc[0], loc[1], w, h)
+        character_surf = pygame.Surface((w, h))
         
         x_offset = 0
         for ch in text:
