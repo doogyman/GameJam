@@ -34,7 +34,7 @@ class Picture_Button:
         # self.initialPosition = initialPosition
         self.imagePath = imagePath
         self.unscaledImage = pygame.image.load(self.imagePath).convert_alpha() # .convert_alpha() removes clear bits from the image i think
-        self.image = pygame.Surface((int(self.unscaledImage.get_width() * desiredScale), int(self.unscaledImage.get_height() * desiredScale)))
+        self.image = pygame.Surface( (int(self.unscaledImage.get_width() * desiredScale), int(self.unscaledImage.get_height() * desiredScale)), pygame.SRCALPHA )
         pygame.transform.scale_by(self.unscaledImage, desiredScale, self.image)
 
         self.button = pygame.rect.Rect((initialPosition[0], initialPosition[1]), (self.image.get_width(), self.image.get_height()))

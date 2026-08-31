@@ -23,5 +23,9 @@ Mon 17 Aug:
     b) Including more things that the player has to find for the gatekeeper.
     c) Craftables can be used for getting past obstacles if need ot reach the key/goal.
 
-    Sun 30th Aug:
-     - introduced a main menu screen with a play button to launch the game
+Sun 30th Aug:
+ - introduced a main menu screen with a play button to launch the game
+   
+Mon 31th Aug:
+ - swapped out play button for a play button graphic made by Raltao
+ - made the menu screen look better by ensuring the center of the play button stayed in the center of the screen, even if the menu screen was resized

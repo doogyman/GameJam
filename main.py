@@ -32,7 +32,7 @@ class Game:
 
         # for the main menu
         self.inMainMenu = True
-        self.playButton = Text_Button('play', (80, 80))
+        self.playButton = Picture_Button('assets/play1.png', (150, 50), 4)
 
         # for the pause menu
         self.isPaused = False # if in the main menu, ignore the value of this anyway
@@ -162,29 +162,41 @@ class Game:
         # print('drawMainMenu FUNC called')
 
         self.game_surface.fill((243, 243, 243))
-        # button = pygame.rect.Rect((100, 100), (260, 40))
-        # pygame.draw.rect(self.game_surface, 'dark gray', button, 5, 5)
 
-        # print(self.playButton)
 
-        self.playButton.draw(self.game_surface)
 
 
         # transfers stuff from game surface to screen surface to account for window resizing, then blits that onto the screen. crucial
         self.scaled_surface = pygame.Surface((actualWidth, actualHeight))
         pygame.transform.scale(self.game_surface, (actualWidth, actualHeight), self.scaled_surface)
+
+        self.playButton.draw(self.scaled_surface)
+
         self.screen.blit(self.scaled_surface, (0, 0))
 
         
     def updateMainMenu(self):
+
+        playButtonWidth = self.playButton.image.get_width()
+        currentScreenWidth = pygame.display.get_surface().get_width()
+
+        # print('playButtonWidth : ', playButtonWidth)
+        # print('currentScreenWidth : ', currentScreenWidth)
+
+        playButtonHeight = self.playButton.image.get_height()
+        currentScreenHeight = pygame.display.get_surface().get_height()
+
+        self.playButton.button.x = ( currentScreenWidth -  playButtonWidth) / 2
+        self.playButton.button.y = ( currentScreenHeight -  playButtonHeight) / 2
+
+        # print('self.playButton.button.x : ', self.playButton.button.x)
         # print('updateMainMenu FUNC called')
         real_mouse_pos = pygame.mouse.get_pos()
-
-        logic_mouse_pos = [real_mouse_pos[0] / Globals.SCALE, real_mouse_pos[1] / Globals.SCALE]
+        # print('real_mouse_pos[0] : ', real_mouse_pos[0])
 
         
         # this is a function that updates the main menu
-        if self.playButton.button.collidepoint((logic_mouse_pos[0], logic_mouse_pos[1])) and pygame.mouse.get_pressed()[0]: # if the mouse button is on the button and the left mouse button is down (True) then
+        if self.playButton.button.collidepoint(real_mouse_pos) and pygame.mouse.get_pressed()[0]: # if the mouse button is on the button and the left mouse button is down (True) then
             self.inMainMenu = False
 
     def drawPauseMenu(self, actualWidth, actualHeight):
