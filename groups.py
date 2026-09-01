@@ -78,8 +78,9 @@ class AllSprites(pygame.sprite.Group):
             print("loading")
             surface.blit(sprite.image, coords)
         
-        for sprite in self.indicator_sprites:
+        for sprite in self.text_sprites:
             coords = (sprite.rect.x + self.offset.x + otherOffset.x, sprite.rect.y + self.offset.y + (otherOffset.y * 2))
+            surface.blit(sprite.image, coords)
 
         for sprite in self.ambience:
             surface.blit(sprite.image, sprite.rect.topleft + self.offset)
