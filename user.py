@@ -177,12 +177,14 @@ class User(Entity):
         if self.hovered_ore:
             # print(self.hovered_ore.ore_type)
             self.ore_indicator.indicator_type(self.hovered_ore.ore_type)
-            self.font.render(self.hovered_ore.ore_type, (10, 10))
+            self.font.render(self.hovered_ore.ore_type, self.hovered_ore.rect)
             self.ore_indicator.show(self.groups()[0])
             self.font.show(self.groups()[0])
             self.ore_indicator.animate(self.hovered_ore.rect, dt)
+            print(self.hovered_ore.ore_type)
         else:
             self.ore_indicator.hide()
+            self.font.hide()
             
     def update_cells(self, dt):
         # print(f"capacity: {self.battery_capacity}")

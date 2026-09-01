@@ -44,4 +44,3 @@ class MaterialSprite(pygame.sprite.Sprite):
         print('drawMessage FUNC called')
         print('targetSurface : ', targetSurface)
         print('loadedMessageBox : ', loadedMessageBox)
-

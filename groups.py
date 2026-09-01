@@ -11,7 +11,7 @@ class AllSprites(pygame.sprite.Group):
         self.battery = pygame.sprite.Group()
         self.ambience = pygame.sprite.Group()
         self.effects = pygame.sprite.Group()
-        self.text = pygame.sprite.Group()
+        self.text_sprites = pygame.sprite.Group()
         
     def catagorise(self):
         # print('beginning of categorise, len(self.indicator_sprites) : ', len(self.indicator_sprites))
@@ -29,7 +29,7 @@ class AllSprites(pygame.sprite.Group):
             elif hasattr(sprite, 'is_effect'):
                 self.effects.add(sprite)
             elif hasattr(sprite, 'is_text'):
-                self.text.add(sprite)
+                self.text_sprites.add(sprite)
             else:
                 self.object_sprites.add(sprite)
 
@@ -47,7 +47,7 @@ class AllSprites(pygame.sprite.Group):
 
         # blit ground sprites which aren't walls
         for sprite in self.ground_sprites:
-            if sprite.groundType != 'wall' and not hasattr(sprite, 'is_effect'):
+            if sprite.groundType != 'wall' and not hasattr(sprite, 'is_effect') and not hasattr(sprite, 'is_text'):
                 surface.blit(sprite.image, sprite.rect.topleft + self.offset)
             # print('sprite.groundType !! : ', sprite.groundType)
 
@@ -75,11 +75,11 @@ class AllSprites(pygame.sprite.Group):
         otherOffset.y = -3
         for sprite in self.indicator_sprites:
             coords = (sprite.rect.x + self.offset.x + otherOffset.x, sprite.rect.y + self.offset.y + otherOffset.y)
-            print("loading")
             surface.blit(sprite.image, coords)
         
         for sprite in self.text_sprites:
-            coords = (sprite.rect.x + self.offset.x + otherOffset.x, sprite.rect.y + self.offset.y + (otherOffset.y * 2))
+            
+            coords = (sprite.rect.x + self.offset.x + otherOffset.x, sprite.rect.y + self.offset.y + (otherOffset.y * 3))
             surface.blit(sprite.image, coords)
 
         for sprite in self.ambience:
