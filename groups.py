@@ -78,15 +78,8 @@ class AllSprites(pygame.sprite.Group):
             surface.blit(sprite.image, coords)
         
         for sprite in self.text_sprites:
-            
             coords = (sprite.rect.x + self.offset.x + otherOffset.x, sprite.rect.y + self.offset.y + (otherOffset.y * 3))
             surface.blit(sprite.image, coords)
-
-        for sprite in self.ambience:
-            surface.blit(sprite.image, sprite.rect.topleft + self.offset)
-            
-        for sprite in self.battery:
-            surface.blit(sprite.image, sprite.rect.topleft)
             
     def drawHitbox(self, surface, target_pos):
         self.offset.x = -(target_pos[0] - BASEWIDTH / 2)
