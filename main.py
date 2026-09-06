@@ -32,7 +32,7 @@ class Game:
 
         # for the main menu
         self.inMainMenu = True
-        self.playButton = Picture_Button('assets/play1.png', (150, 50), 4) # arbritrary starting numbers because gets updated every frame of the main menu anyways
+        self.playButton = Picture_Button('assets/play.png', (150, 50), 4) # arbritrary starting numbers because gets updated every frame of the main menu anyways
 
         self.allLevelsButton = Picture_Button('assets/all_levels.png', (150, 100), 4) # arbritrary starting numbers because gets updated every frame of the main menu anyways
 
@@ -64,10 +64,7 @@ class Game:
 
         for x, y, image in self.map.get_layer_by_name("walls1.5").tiles():
             Sprite((x * TILESIZE, y * TILESIZE), image, {'groundType': 'wall'}, self.all_sprites)
-        
-        for x, y, image in self.map.get_layer_by_name("doors").tiles():
-            Sprite((x * TILESIZE, y * TILESIZE), image, {'groundType': 'door'}, self.all_sprites)
-
+            
         for x, y, image in self.map.get_layer_by_name("walls2").tiles():
             Sprite((x * TILESIZE, y * TILESIZE), image, {'groundType': 'wall'}, self.all_sprites)
 
